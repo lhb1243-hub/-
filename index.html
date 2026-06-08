@@ -1,206 +1,197 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>감염성 질환 예방과 응급구조사</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>생명과학 & 응급구조사: 감염성 질환의 예방</title>
+    <style>
+        /* 기본 스타일 리셋 및 폰트 설정 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Malgun Gothic', dotum, sans-serif;
+        }
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
 
-body{
-    font-family:'맑은 고딕', sans-serif;
-    line-height:1.8;
-    background:#f4f8fb;
-}
+        /* 헤더 스타일 (응급구조사의 역동성과 신뢰감을 주는 블루&레드 포인트) */
+        header {
+            background: linear-gradient(135deg, #0052d4, #4364f7, #6fb1fc);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
 
-header{
-    background:#0d6efd;
-    color:white;
-    text-align:center;
-    padding:40px;
-}
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
 
-nav{
-    background:#084298;
-    padding:15px;
-    text-align:center;
-}
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
 
-nav a{
-    color:white;
-    text-decoration:none;
-    margin:15px;
-    font-weight:bold;
-}
+        /* 네비게이션 바 */
+        nav {
+            background-color: #2c3e50;
+            text-align: center;
+            sticky: top;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-section{
-    background:white;
-    width:80%;
-    margin:30px auto;
-    padding:30px;
-    border-radius:15px;
-    box-shadow:0 0 10px rgba(0,0,0,0.1);
-}
+        nav a {
+            display: inline-block;
+            color: white;
+            padding: 15px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
 
-h2{
-    color:#0d6efd;
-    margin-bottom:15px;
-}
+        nav a:hover {
+            background-color: #e74c3c; /* 응급구조의 상징적 레드 포인트 */
+        }
 
-.card{
-    background:#eef6ff;
-    padding:20px;
-    margin:15px 0;
-    border-left:5px solid #0d6efd;
-}
+        /* 메인 컨텐츠 구조 */
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
 
-footer{
-    background:#084298;
-    color:white;
-    text-align:center;
-    padding:20px;
-}
-</style>
+        section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
 
+        h2 {
+            color: #0052d4;
+            border-bottom: 3px solid #0052d4;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        h3 {
+            color: #2c3e50;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* 리스트 및 강조 스타일 */
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+
+        /* 안내 박스 스타일 */
+        .info-box {
+            background-color: #eef2f7;
+            border-left: 5px solid #4364f7;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* 푸터 */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+            font-size: 0.9rem;
+            margin-top: 50px;
+        }
+    </style>
 </head>
-
 <body>
 
-<header>
-    <h1>감염성 질환 예방과 응급구조사</h1>
-    <p>생명과학Ⅰ 교과 내용과 응급구조사 진로 탐구</p>
-</header>
+    <header>
+        <h1>생명과학으로 생명을 구하다</h1>
+        <p>예비 응급구조사가 전하는 감염성 질환과 백신의 모든 것</p>
+    </header>
 
-<nav>
-    <a href="#disease">감염성 질환</a>
-    <a href="#immune">면역과 백신</a>
-    <a href="#prevention">예방법</a>
-    <a href="#career">응급구조사</a>
-</nav>
+    <nav>
+        <a href="#intro">진로 소개</a>
+        <a href="#pathway">병원체 감용경로</a>
+        <a href="#vaccine">백신의 원리 & 종류</a>
+        <a href="#immunity">집단 면역의 중요성</a>
+    </nav>
 
-<section id="disease">
-    <h2>1. 감염성 질환이란?</h2>
+    <div class="container">
 
-    <p>
-        감염성 질환은 세균, 바이러스, 곰팡이 등의 병원체가
-        우리 몸에 침입하여 발생하는 질병이다.
-    </p>
+        <section id="intro">
+            <h2>🚑 진로 소개: 응급구조사(EMT)란?</h2>
+            <p>응급구조사는 재난이나 사고 현장에서 환자의 생명을 구하기 위해 가장 먼저 달려가는 <span class="highlight">현장의 최전선 의료진</span>입니다. 현장 평가부터 응급처치, 환자 이송까지의 모든 과정에서 환자뿐만 아니라 구조사 자신을 병원체로부터 보호하는 <strong>'감염 관리'</strong>는 필수적인 역량입니다.</p>
+            
+            <div class="info-box">
+                <strong>💡 생명과학 교과 연계 포인트:</strong><br>
+                다양한 감염성 질환의 감염 경로를 이해하고, 백신을 통한 면역 형성 원리를 파악하는 것은 응급구조사가 현장에서 감염 보호 장비(PPE)를 올바르게 착용하고, 2차 감염 및 집단 감염 확산을 방지하는 기초 학문적 토대가 됩니다.
+            </div>
+        </section>
 
-    <div class="card">
-        <h3>대표적인 감염성 질환</h3>
-        <ul>
-            <li>독감(인플루엔자)</li>
-            <li>홍역</li>
-            <li>수두</li>
-            <li>코로나19</li>
-            <li>결핵</li>
-        </ul>
-    </div>
-</section>
+        <section id="pathway">
+            <h2>🦠 병원체의 감염 경로</h2>
+            <p>감염성 질환은 병원체가 인체 내로 침입하여 발생합니다. 응급구조사는 현장에서 환자와 밀접하게 접촉하므로 다음과 같은 감염 경로를 철저히 차단해야 합니다.</p>
+            <h3>주요 감염 경로와 예시</h3>
+            <ul>
+                <li><strong>호흡기 침입:</strong> 독감, 코로나바이러스감염증-19 등 (기침, 재채기 비말을 통해 감염)</li>
+                <li><strong>피부 상처 침입:</strong> 파상풍 (오염된 흙이나 못 등에 의해 발생)</li>
+                <li><strong>소화기(음식물) 침입:</strong> 콜레라 (오염된 물이나 음식을 섭취하여 감염)</li>
+                <li><strong>매개 곤충 침입:</strong> 말라리아, 일본뇌염 (모기 등의 매개체를 통해 감염)</li>
+            </ul>
+        </section>
 
-<section id="immune">
-    <h2>2. 면역과 백신</h2>
+        <section id="vaccine">
+            <h2>💉 백신을 통한 감염성 질환의 예방</h2>
+            <h3>백신의 작동 원리 (특이적 방어 작용)</h3>
+            <p>우리 몸에 항원이 처음 침입하면 항원을 인식한 T 림프구와 B 림프구가 활성화되어 항체를 생성하는 <span class="highlight">1차 면역 반응</span>이 일어납니다. 이 과정에서 <span class="highlight">기억 세포</span>가 생성됩니다. 이후 같은 항원이 다시 침입하면 기억 세포가 빠르게 증식·분화하여 다량의 항체를 신속하게 생산하는 <span class="highlight">2차 면역 반응</span>을 일으켜 질병을 예방합니다.</p>
 
-    <p>
-        면역은 병원체로부터 우리 몸을 보호하는 방어 체계이다.
-    </p>
+            <h3>제조 방법에 따른 백신의 종류</h3>
+            <ul>
+                <li><strong>생백신:</strong> 병원체의 독성을 약화한 상태로 체내에 주입 (예: 수두, 홍역)</li>
+                <li><strong>사백신(불활성화 백신):</strong> 열이나 화학 물질로 병원체를 불활성화하여 주입 (예: 콜레라, 인플루엔자)</li>
+                <li><strong>재조합 백신:</strong> 유전자재조합 기술로 만든 항원 단백질만 분리하여 주입 (예: B형 간염)</li>
+                <li><strong>핵산 백신:</strong> 항원 단백질을 암호화하는 DNA나 RNA를 사용 (예: 코로나19 mRNA 백신)</li>
+            </ul>
+        </section>
 
-    <div class="card">
-        <h3>특이적 면역</h3>
-        <p>
-            B림프구와 T림프구가 병원체를 기억하여
-            다시 침입했을 때 빠르게 대응한다.
-        </p>
-    </div>
+        <section id="immunity">
+            <h2>👥 백신과 집단 면역(Herd Immunity)</h2>
+            <p>집단 내에서 대부분의 구성원이 면역력을 가지면 병원체의 확산이 감소하여, 면역력이 없는 개체(예: 기저질환자, 면역 취약계층)까지 보호받는 상태를 <strong>집단 면역</strong>이라고 합니다.</p>
+            
+            <div class="info-box">
+                <strong>🚒 응급구조사의 한마디:</strong><br>
+                응급구조사와 같은 보건의료 종사자들의 필수 백신 접종은 본인의 안전뿐만 아니라, 이송하는 면역 취약 환자들을 보호하고 사회 전체의 집단 면역 시스템을 유지하기 위한 중요한 책임입니다.
+            </div>
+        </section>
 
-    <div class="card">
-        <h3>백신의 원리</h3>
-        <p>
-            병원체의 일부 또는 약화된 병원체를 이용해
-            항체와 기억세포를 형성하도록 한다.
-        </p>
-    </div>
-
-    <div class="card">
-        <h3>집단 면역</h3>
-        <p>
-            많은 사람이 예방접종을 받으면
-            감염병의 확산을 줄여 사회 전체를 보호할 수 있다.
-        </p>
-    </div>
-</section>
-
-<section id="prevention">
-    <h2>3. 감염성 질환 예방법</h2>
-
-    <ul>
-        <li>올바른 손 씻기</li>
-        <li>예방접종 실시</li>
-        <li>마스크 착용</li>
-        <li>기침 예절 지키기</li>
-        <li>실내 환기</li>
-        <li>규칙적인 생활 습관</li>
-    </ul>
-</section>
-
-<section id="career">
-    <h2>4. 응급구조사의 역할</h2>
-
-    <p>
-        응급구조사는 응급환자의 생명을 보호하기 위해
-        현장에서 응급처치를 수행하고 병원으로 안전하게 이송하는 전문 의료 인력이다.
-    </p>
-
-    <div class="card">
-        <h3>주요 업무</h3>
-        <ul>
-            <li>심폐소생술(CPR)</li>
-            <li>기도 확보</li>
-            <li>산소 공급</li>
-            <li>환자 상태 평가</li>
-            <li>응급환자 이송</li>
-        </ul>
     </div>
 
-    <div class="card">
-        <h3>감염성 질환과 응급구조사</h3>
-        <p>
-            응급구조사는 감염병 환자를 이송할 때
-            개인보호구(PPE)를 착용하고,
-            환자와 의료진의 감염을 예방하는 중요한 역할을 수행한다.
-        </p>
-    </div>
-
-    <div class="card">
-        <h3>생명과학과의 연계</h3>
-        <p>
-            면역, 백신, 병원체, 감염 경로에 대한 이해는
-            응급구조사가 감염병 환자를 안전하게 처치하는 데
-            필수적인 기초 지식이다.
-        </p>
-    </div>
-</section>
-
-<section>
-    <h2>5. 나의 진로 계획</h2>
-
-    <p>
-        나는 응급구조사가 되어 응급 상황에서 환자의 생명을 지키는
-        전문 의료인이 되고 싶다.
-        생명과학에서 배운 면역과 감염성 질환 예방 지식을 바탕으로
-        환자와 의료진 모두의 안전을 지키는 응급구조사가 되는 것이 목표이다.
-    </p>
-</section>
-
-<footer>
-    <p>2025 생명과학Ⅰ 진로 연계 프로젝트</p>
-    <p>주제 : 감염성 질환 예방과 응급구조사</p>
-</footer>
+    <footer>
+        <p>&copy; 2026 고등학교 생명과학 & 진로 탐구 프로젝트 | 예비 응급구조사의 웹사이트</p>
+    </footer>
 
 </body>
 </html>
