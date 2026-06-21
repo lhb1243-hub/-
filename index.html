@@ -3,9 +3,9 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width">
 
-<title>감염 예방 도우미</title>
+<title>응급구조사 × 감염 예방 체험</title>
 
 <style>
 
@@ -21,120 +21,118 @@ body{
 background:
 linear-gradient(
 135deg,
-#E9FFFB,
-#EAF4FF
+#E8FFFA,
+#EAF1FF
 );
 
 }
 
 .container{
 
-max-width:850px;
+width:90%;
+
+max-width:900px;
 
 margin:40px auto;
 
-padding:20px;
-
 }
 
-.header{
+.hero{
 
 background:
 linear-gradient(
 135deg,
-#19B2A3,
-#4A79D8
+#18B49F,
+#5A7CF2
 );
 
-color:white;
-
-padding:50px;
+padding:60px;
 
 text-align:center;
 
-border-radius:25px 25px 0 0;
+color:white;
 
-}
-
-.content{
-
-background:white;
-
-padding:35px;
-
-border-radius:0 0 25px 25px;
+border-radius:25px;
 
 }
 
 .card{
 
-background:#F8FFFE;
+background:white;
 
 padding:25px;
 
+margin-top:25px;
+
 border-radius:20px;
+
+box-shadow:0 5px 20px rgba(0,0,0,0.08);
 
 }
 
-textarea{
+h2{
 
-width:100%;
+color:#178E87;
 
-height:120px;
-
-padding:18px;
-
-margin-top:15px;
-
-border-radius:15px;
-
-border:1px solid #ddd;
-
-resize:none;
+margin-bottom:15px;
 
 }
 
 button{
 
-width:100%;
+padding:14px;
 
-padding:18px;
-
-margin-top:20px;
+margin-top:10px;
 
 border:none;
 
-border-radius:15px;
+border-radius:12px;
 
-background:#19B2A3;
+background:#1AA698;
 
 color:white;
 
-font-size:18px;
+width:100%;
+
+}
+
+input{
+
+width:100%;
+
+padding:15px;
+
+margin-top:10px;
+
+border:1px solid #ddd;
+
+border-radius:10px;
 
 }
 
 .result{
 
-margin-top:20px;
+margin-top:15px;
 
-padding:25px;
+padding:20px;
 
-background:#EDFDFC;
+background:#F4FFFD;
 
 border-radius:15px;
 
-line-height:1.9;
-
 }
 
-.small{
+.option{
 
-margin-top:20px;
+background:#EEFDFB;
 
-color:gray;
+padding:15px;
 
-font-size:13px;
+margin-top:10px;
+
+border-radius:12px;
+
+cursor:pointer;
 
 }
 
@@ -146,45 +144,187 @@ font-size:13px;
 
 <div class="container">
 
-<div class="header">
+<div class="hero">
 
-<h1>🚑 감염 예방 도우미</h1>
+<h1>🚑 응급구조사 × 감염 예방 체험</h1>
 
 <p>
-현재 상태를 입력하면 참고용 예방 안내를 제공합니다
+
+생명과학Ⅱ 감염성 질환 예방 단원
+
 </p>
 
 </div>
 
-<div class="content">
+
 
 <div class="card">
 
-<h2>현재 상태 입력</h2>
+<h2>① 응급구조사 되어보기</h2>
 
-<textarea
-id="symptom"
+<p>
+
+친구가 열이 나고 기침하며 힘들어한다.
+
+</p>
+
+<div class="option"
+
+onclick="choice(1)">
+
+① 바로 부축한다
+
+</div>
+
+<div class="option"
+
+onclick="choice(2)">
+
+② 마스크 착용 후 상태 확인
+
+</div>
+
+<div class="option"
+
+onclick="choice(3)">
+
+③ 주변 사람부터 대피
+
+</div>
+
+<div
+class="result"
+id="scenario">
+
+선택해보세요.
+
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>② 감염 위험 시뮬레이터</h2>
+
+<input
+
+id="risk"
 
 placeholder=
-"예) 몸살이 있고 목이 따갑고 콧물이 나요
-예) 배가 아프고 설사를 했어요
-예) 피곤하고 두통이 있어요">
 
-</textarea>
+"예: 기침했고 손 안 씻음">
 
-<button onclick="analyze()">
+<button
 
-결과 보기
+onclick="risk()">
+
+확인
 
 </button>
 
 <div
-class="result"
-id="result">
 
-증상을 입력해주세요.
+class="result"
+
+id="riskResult">
+
+입력 대기중
 
 </div>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>③ 감염 예방 Q&A</h2>
+
+<input
+
+id="chat"
+
+placeholder=
+
+"손만 씻으면 예방되나요?">
+
+<button
+
+onclick="chat()">
+
+질문하기
+
+</button>
+
+<div
+
+class="result"
+
+id="answer">
+
+질문해보세요.
+
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>④ 내 상태 체크</h2>
+
+<input
+
+id="state"
+
+placeholder=
+
+"예: 피곤하고 목이 따가움">
+
+<button
+
+onclick="state()">
+
+확인
+
+</button>
+
+<div
+
+class="result"
+
+id="stateResult">
+
+입력 대기중
+
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>⑤ 오늘의 예방 미션</h2>
+
+<button
+
+onclick="mission()">
+
+생성하기
+
+</button>
+
+<div
+
+class="result"
+
+id="mission">
+
+버튼 클릭
 
 </div>
 
@@ -194,230 +334,187 @@ id="result">
 
 <script>
 
-function analyze(){
+function choice(num){
 
-let text=
+let text="";
+
+if(num==1)
+
+text=
+"⚠ 감염 위험 고려 부족";
+
+if(num==2)
+
+text=
+"✅ 응급구조사와 가까운 판단";
+
+if(num==3)
+
+text=
+"🟡 상황에 따라 가능";
 
 document
-.getElementById("symptom")
+.getElementById("scenario")
 
-.value
+.innerHTML=text;
 
-.toLowerCase();
+}
+
+function risk(){
+
+let t=
+
+document
+.getElementById("risk")
+
+.value;
+
+let score=0;
+
+if(t.includes("기침"))score++;
+
+if(t.includes("열"))score++;
+
+if(t.includes("손"))score++;
+
+if(t.includes("접촉"))score++;
+
+let result=
+
+score>=3
+
+?
+
+"🔴 예방 행동 강화 권장"
+
+:
+
+score>=2
+
+?
+
+"🟡 생활 위생 강화"
+
+:
+
+"🟢 기본 예방 유지";
+
+document
+.getElementById("riskResult")
+
+.innerHTML=result;
+
+}
+
+function chat(){
+
+let q=
+
+document
+.getElementById("chat")
+
+.value;
+
+let a="";
+
+if(q.includes("손"))
+
+a="손 씻기는 중요하지만 단독 예방 방법은 아닙니다.";
+
+else if(q.includes("마스크"))
+
+a="상황에 맞게 사용하면 감염 전파 감소에 도움이 됩니다.";
+
+else
+
+a="감염 예방은 위생·환경·생활습관을 함께 고려합니다.";
+
+document
+.getElementById("answer")
+
+.innerHTML=a;
+
+}
+
+function state(){
+
+let t=
+
+document
+.getElementById("state")
+
+.value;
 
 let result="";
 
-let prevention=[];
-
 if(
 
-text.includes("기침")
-||
-
-text.includes("콧물")
-||
-
-text.includes("목")
-||
-
-text.includes("가래")
-||
-
-text.includes("숨")
+t.includes("기침")
 
 ||
 
-text.includes("열")
+t.includes("열")
 
-){
-
-result+=
-`
-<h3>🫁 호흡기 감염 관련 증상 가능성</h3>
-
-<p>
-호흡기 증상이 포함되어 있습니다.
-생활 속 감염 예방 행동이 중요합니다.
-</p>
-`;
-
-prevention.push(
-"마스크 착용",
-"손 위생",
-"충분한 휴식"
-);
-
-}
-
-if(
-
-text.includes("설사")
-
-||
-
-text.includes("복통")
-
-||
-
-text.includes("구토")
-
-||
-
-text.includes("메스꺼움")
-
-){
-
-result+=
-`
-<h3>🍽 소화기 감염 예방 필요</h3>
-
-<p>
-위생 관리와 수분 보충에 신경 써보세요.
-</p>
-`;
-
-prevention.push(
-"음식 위생",
-"물 충분히 마시기"
-);
-
-}
-
-if(
-
-text.includes("발진")
-
-||
-
-text.includes("가려움")
-
-||
-
-text.includes("피부")
-
-){
-
-result+=
-`
-<h3>🩹 피부 관련 증상 참고</h3>
-
-<p>
-피부 상태 변화가 있다면 청결 유지와 관찰이 필요합니다.
-</p>
-`;
-
-prevention.push(
-"손 접촉 최소화",
-"청결 유지"
-);
-
-}
-
-if(
-
-text.includes("두통")
-
-||
-
-text.includes("몸살")
-
-||
-
-text.includes("피곤")
-
-||
-
-text.includes("무기력")
-
-){
-
-result+=
-`
-<h3>🌡 전신 증상 관찰</h3>
-
-<p>
-충분한 휴식과 상태 변화를 확인하세요.
-</p>
-`;
-
-prevention.push(
-"수면",
-"충분한 수분 섭취"
-);
-
-}
-
-if(
-
-text.includes("숨쉬기")
-
-||
-
-text.includes("호흡곤란")
-
-||
-
-text.includes("의식")
-
-){
-
-result+=
-`
-<h3>🚨 즉시 도움 요청 고려</h3>
-
-<p>
-호흡·의식 관련 이상은 빠른 평가가 중요합니다.
-</p>
-`;
-
-}
-
-if(result===""){
+)
 
 result=
-`
-<h3>🔎 판단 어려움</h3>
+"🫁 호흡기 증상 관찰";
 
-<p>
+else if(
 
-입력된 내용만으로 특정 상황을 구분하기 어렵습니다.
+t.includes("배")
 
-</p>
+||
 
-`;
+t.includes("설사")
+
+)
+
+result=
+"🍽 위생 관리";
+
+else
+
+result=
+"🌱 생활 관리";
+
+document
+.getElementById("stateResult")
+
+.innerHTML=result;
 
 }
 
-result+=
+function mission(){
 
-`
+let arr=[
 
-<hr>
+"✔ 손 씻기",
 
-<h3>예방 행동</h3>
+"✔ 물 마시기",
 
-${[...new Set(prevention)]
-.map(x=>"✔ "+x)
-.join("<br>")}
+"✔ 환기",
 
-<div class="small">
+"✔ 기침 예절",
 
-※ 교육용 참고입니다.<br>
+"✔ 수면"
 
-응급구조사는 실제 현장에서 증상 하나가 아니라 여러 정보를 종합해 초기 평가와 감염 예방을 수행합니다.
+];
 
-</div>
+let random=
 
-`;
+arr
+
+.sort(()=>0.5-Math.random())
+
+.slice(0,3)
+
+.join("<br>");
 
 document
-.getElementById("result")
+.getElementById("mission")
 
-.innerHTML
-
-=
-
-result;
+.innerHTML=random;
 
 }
 
