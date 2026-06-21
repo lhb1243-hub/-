@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>감염 위험 자가 확인</title>
+<title>감염 예방 도우미</title>
 
 <style>
 
@@ -20,15 +21,15 @@ body{
 background:
 linear-gradient(
 135deg,
-#E7FBF6,
-#DDF0FF
+#E9FFFB,
+#EAF4FF
 );
 
 }
 
 .container{
 
-max-width:800px;
+max-width:850px;
 
 margin:40px auto;
 
@@ -41,13 +42,13 @@ padding:20px;
 background:
 linear-gradient(
 135deg,
-#1BAE9B,
-#2F83D5
+#19B2A3,
+#4A79D8
 );
 
 color:white;
 
-padding:55px;
+padding:50px;
 
 text-align:center;
 
@@ -67,35 +68,29 @@ border-radius:0 0 25px 25px;
 
 .card{
 
-background:#F7FFFD;
+background:#F8FFFE;
 
 padding:25px;
-
-margin-top:20px;
 
 border-radius:20px;
 
 }
 
-h2{
-
-color:#208B8A;
-
-margin-bottom:15px;
-
-}
-
-input{
+textarea{
 
 width:100%;
 
-padding:15px;
+height:120px;
 
-margin-top:10px;
+padding:18px;
 
-border-radius:10px;
+margin-top:15px;
+
+border-radius:15px;
 
 border:1px solid #ddd;
+
+resize:none;
 
 }
 
@@ -103,21 +98,19 @@ button{
 
 width:100%;
 
-padding:16px;
+padding:18px;
 
 margin-top:20px;
-
-background:#1BAE9B;
-
-color:white;
 
 border:none;
 
 border-radius:15px;
 
-font-size:18px;
+background:#19B2A3;
 
-cursor:pointer;
+color:white;
+
+font-size:18px;
 
 }
 
@@ -125,29 +118,23 @@ cursor:pointer;
 
 margin-top:20px;
 
-padding:20px;
+padding:25px;
+
+background:#EDFDFC;
 
 border-radius:15px;
 
-background:#ECFAF7;
+line-height:1.9;
 
 }
 
-.tip{
-
-margin-top:10px;
-
-color:#3B5A69;
-
-}
-
-.footer{
+.small{
 
 margin-top:20px;
 
-font-size:13px;
-
 color:gray;
+
+font-size:13px;
 
 }
 
@@ -164,7 +151,7 @@ color:gray;
 <h1>🚑 감염 예방 도우미</h1>
 
 <p>
-증상을 입력하면 참고용 안내와 예방 수칙을 알려드립니다
+현재 상태를 입력하면 참고용 예방 안내를 제공합니다
 </p>
 
 </div>
@@ -175,12 +162,17 @@ color:gray;
 
 <h2>현재 상태 입력</h2>
 
-<input
+<textarea
 id="symptom"
-placeholder=
-"예: 열이 나고 기침이 있어요">
 
-<button onclick="check()">
+placeholder=
+"예) 몸살이 있고 목이 따갑고 콧물이 나요
+예) 배가 아프고 설사를 했어요
+예) 피곤하고 두통이 있어요">
+
+</textarea>
+
+<button onclick="analyze()">
 
 결과 보기
 
@@ -188,7 +180,6 @@ placeholder=
 
 <div
 class="result"
-
 id="result">
 
 증상을 입력해주세요.
@@ -203,7 +194,7 @@ id="result">
 
 <script>
 
-function check(){
+function analyze(){
 
 let text=
 
@@ -211,45 +202,54 @@ document
 .getElementById("symptom")
 
 .value
+
 .toLowerCase();
 
 let result="";
 
+let prevention=[];
+
 if(
-text.includes("열")
 
-||
 text.includes("기침")
+||
 
+text.includes("콧물")
 ||
 
 text.includes("목")
+||
+
+text.includes("가래")
+||
+
+text.includes("숨")
+
+||
+
+text.includes("열")
+
 ){
 
-result=
+result+=
 `
-<h3>🟡 감염 가능성 고려</h3>
+<h3>🫁 호흡기 감염 관련 증상 가능성</h3>
 
 <p>
-호흡기 감염과 관련된 증상이 있을 수 있습니다.
-정확한 진단은 의료기관에서 확인하세요.
+호흡기 증상이 포함되어 있습니다.
+생활 속 감염 예방 행동이 중요합니다.
 </p>
-
-<div class="tip">
-
-✔ 마스크 착용<br>
-
-✔ 손 씻기<br>
-
-✔ 충분한 휴식
-
-</div>
-
 `;
+
+prevention.push(
+"마스크 착용",
+"손 위생",
+"충분한 휴식"
+);
 
 }
 
-else if(
+if(
 
 text.includes("설사")
 
@@ -257,49 +257,132 @@ text.includes("설사")
 
 text.includes("복통")
 
+||
+
+text.includes("구토")
+
+||
+
+text.includes("메스꺼움")
+
 ){
 
-result=
+result+=
 `
-<h3>🟠 위생 관리 필요</h3>
+<h3>🍽 소화기 감염 예방 필요</h3>
 
 <p>
-
-소화기 관련 감염 예방 행동을 실천하세요.
-
+위생 관리와 수분 보충에 신경 써보세요.
 </p>
+`;
 
-<div class="tip">
+prevention.push(
+"음식 위생",
+"물 충분히 마시기"
+);
 
-✔ 수분 섭취<br>
+}
 
-✔ 음식 위생 관리
+if(
 
-</div>
+text.includes("발진")
 
+||
+
+text.includes("가려움")
+
+||
+
+text.includes("피부")
+
+){
+
+result+=
+`
+<h3>🩹 피부 관련 증상 참고</h3>
+
+<p>
+피부 상태 변화가 있다면 청결 유지와 관찰이 필요합니다.
+</p>
+`;
+
+prevention.push(
+"손 접촉 최소화",
+"청결 유지"
+);
+
+}
+
+if(
+
+text.includes("두통")
+
+||
+
+text.includes("몸살")
+
+||
+
+text.includes("피곤")
+
+||
+
+text.includes("무기력")
+
+){
+
+result+=
+`
+<h3>🌡 전신 증상 관찰</h3>
+
+<p>
+충분한 휴식과 상태 변화를 확인하세요.
+</p>
+`;
+
+prevention.push(
+"수면",
+"충분한 수분 섭취"
+);
+
+}
+
+if(
+
+text.includes("숨쉬기")
+
+||
+
+text.includes("호흡곤란")
+
+||
+
+text.includes("의식")
+
+){
+
+result+=
+`
+<h3>🚨 즉시 도움 요청 고려</h3>
+
+<p>
+호흡·의식 관련 이상은 빠른 평가가 중요합니다.
+</p>
 `;
 
 }
 
-else{
+if(result===""){
 
 result=
 `
-<h3>🟢 일반 안내</h3>
+<h3>🔎 판단 어려움</h3>
 
 <p>
 
-입력된 내용만으로는 판단하기 어렵습니다.
+입력된 내용만으로 특정 상황을 구분하기 어렵습니다.
 
 </p>
-
-<div class="tip">
-
-✔ 손 위생 유지<br>
-
-✔ 생활 습관 관리
-
-</div>
 
 `;
 
@@ -309,11 +392,19 @@ result+=
 
 `
 
-<div class="footer">
+<hr>
 
-※ 교육용 예시이며 진단 기능이 아닙니다.<br>
+<h3>예방 행동</h3>
 
-응급구조사는 현장에서 증상을 빠르게 파악하고 감염 확산을 예방합니다.
+${[...new Set(prevention)]
+.map(x=>"✔ "+x)
+.join("<br>")}
+
+<div class="small">
+
+※ 교육용 참고입니다.<br>
+
+응급구조사는 실제 현장에서 증상 하나가 아니라 여러 정보를 종합해 초기 평가와 감염 예방을 수행합니다.
 
 </div>
 
