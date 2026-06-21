@@ -1,909 +1,331 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Emergency Bio Lab</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+<title>응급구조사 × 감염성 질환 예방</title>
 
 <style>
-
-/* ======================
-RESET
-====================== */
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
+font-family:'맑은 고딕';
 }
 
 body{
-font-family:-apple-system,BlinkMacSystemFont,sans-serif;
-background:#07111b;
-color:white;
-overflow:hidden;
-transition:1s;
-position:relative;
-}
 
-body.bright{
-background:#f8fafc;
-color:#111827;
-}
-
-body::before{
-content:"";
-position:fixed;
-width:200%;
-height:200%;
 background:
-radial-gradient(circle at 20% 30%, rgba(0,255,200,0.04), transparent 30%),
-radial-gradient(circle at 80% 60%, rgba(20,184,166,0.04), transparent 30%);
-animation:bgmove 12s linear infinite;
-z-index:-1;
-}
+linear-gradient(
+135deg,
+#FFF7F7,
+#FFECEC
+);
 
-@keyframes bgmove{
-0%{transform:translate(0,0);}
-50%{transform:translate(-5%, -3%);}
-100%{transform:translate(0,0);}
-}
+min-height:100vh;
 
-.screen{
-position:absolute;
-width:100%;
-height:100vh;
-display:none;
-justify-content:center;
-align-items:center;
-padding:40px;
-animation:fade 0.8s ease;
-}
-
-.active{
-display:flex;
 }
 
 .container{
-width:1300px;
-max-width:95%;
+
+width:90%;
+
+max-width:900px;
+
+margin:40px auto;
+
 }
 
-@keyframes fade{
-from{
-opacity:0;
-transform:translateY(20px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
+.hero{
 
-button{
-padding:18px 34px;
-border:none;
-border-radius:20px;
-cursor:pointer;
-font-size:16px;
-font-weight:600;
-transition:0.3s;
-background:#00bfa6;
-color:white;
-box-shadow:0 8px 20px rgba(20,184,166,0.2);
-}
-
-button:hover{
-transform:scale(1.04);
-box-shadow:0 12px 28px rgba(20,184,166,0.3);
-}
-
-/* ======================
-SCREEN 1 MONITOR
-====================== */
-
-.monitor{
-width:900px;
-padding:60px;
-background:rgba(10,20,30,0.75);
-backdrop-filter:blur(18px);
-border:1px solid rgba(0,255,200,0.2);
-border-radius:30px;
-box-shadow:0 0 40px rgba(0,255,180,0.08);
-}
-
-.monitor h1{
-font-family:'Orbitron';
-font-size:55px;
-color:#00ffc8;
-margin-bottom:40px;
-text-align:center;
-letter-spacing:2px;
-}
-
-.data{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:20px;
-font-family:'Orbitron';
-font-size:22px;
-line-height:2;
-margin-bottom:40px;
-}
-
-.blink{
-animation:blink 1s infinite;
-}
-
-@keyframes blink{
-50%{
-opacity:0.3;
-}
-}
-
-.danger{
-color:#ff4d6d;
-animation:pulse 1.2s infinite;
-}
-
-@keyframes pulse{
-50%{
-transform:scale(1.05);
-}
-}
-
-/* ECG */
-
-.ecg-container{
-margin-top:40px;
-height:140px;
-overflow:hidden;
-position:relative;
-}
-
-svg{
-width:200%;
-height:140px;
-position:absolute;
-left:0;
-animation:ecgMove 4s linear infinite;
-}
-
-@keyframes ecgMove{
-0%{transform:translateX(0);}
-100%{transform:translateX(-50%);}
-}
-
-.ecg-line{
-fill:none;
-stroke:#00ffc8;
-stroke-width:4;
-stroke-linejoin:round;
-stroke-linecap:round;
-filter:drop-shadow(0 0 6px #00ffc8);
-}
-
-.start{
-margin-top:40px;
-display:flex;
-justify-content:center;
-}
-
-/* ======================
-SCREEN 2 CALL
-====================== */
-
-.call-card{
-width:850px;
-padding:60px;
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(15px);
-border-radius:30px;
-border:1px solid rgba(255,255,255,0.1);
-}
-
-.call-title{
-font-family:'Orbitron';
-font-size:34px;
-margin-bottom:35px;
-color:#00ffc8;
-}
-
-.call-text{
-font-size:25px;
-line-height:2.2;
-margin-bottom:40px;
-}
-
-/* ======================
-SCREEN 3 DECISION
-====================== */
-
-.title{
-font-size:42px;
-margin-bottom:30px;
-font-weight:700;
-}
-
-.patient{
-background:rgba(255,255,255,0.07);
-padding:35px;
-border-radius:25px;
-margin-bottom:40px;
-font-size:22px;
-line-height:2;
-backdrop-filter:blur(12px);
-}
-
-.options{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:20px;
-}
-
-.option{
-background:rgba(255,255,255,0.08);
-padding:30px;
-border-radius:25px;
-cursor:pointer;
-text-align:center;
-transition:0.35s;
-backdrop-filter:blur(10px);
-}
-
-.option:hover{
-transform:translateY(-8px);
-}
-
-.option.correct{
-background:#00bfa6;
-transform:scale(1.06);
-box-shadow:0 0 30px rgba(0,255,200,0.4);
-}
-
-.option.wrong{
-background:#ff4d6d;
-animation:shake 0.3s;
-}
-
-@keyframes shake{
-25%{transform:translateX(-8px);}
-50%{transform:translateX(8px);}
-75%{transform:translateX(-6px);}
-}
-
-.feedback{
-margin-top:30px;
-padding:30px;
-border-radius:20px;
-display:none;
-line-height:2;
-font-size:19px;
-}
-
-  /* ======================
-SCREEN 4 TIMELINE
-====================== */
-
-.timeline-wrap{
-display:flex;
-gap:60px;
-align-items:flex-start;
-margin-top:50px;
-}
-
-.timeline{
-display:flex;
-flex-direction:column;
-gap:18px;
-width:300px;
-}
-
-.step{
-padding:22px;
-border-radius:18px;
-background:rgba(255,255,255,0.08);
-cursor:pointer;
-transition:0.3s;
-backdrop-filter:blur(10px);
-border-left:4px solid transparent;
-}
-
-.step:hover{
-transform:translateX(8px);
-border-left:4px solid #00ffc8;
-box-shadow:0 0 20px rgba(0,255,200,0.15);
-}
-
-.job-detail{
-flex:1;
-padding:40px;
-background:rgba(255,255,255,0.08);
-border-radius:25px;
-min-height:420px;
-line-height:2.1;
-font-size:19px;
-backdrop-filter:blur(15px);
-display:none;
-}
-
-/* ======================
-SCREEN 5 SWIPE BIOLOGY
-====================== */
-
-#screen5,#screen6,#screen7{
-color:#111827;
-}
-
-.bio-section{
-width:100%;
-display:flex;
-flex-direction:column;
-align-items:center;
-}
-
-.bio-title{
-font-size:42px;
-font-weight:700;
-margin-bottom:50px;
-}
-
-.swiper-container{
-width:100%;
-overflow:hidden;
-position:relative;
-padding:40px 0;
-cursor:grab;
-}
-
-.swiper-track{
-display:flex;
-gap:30px;
-transition:transform 0.45s ease;
-padding-left:20%;
-padding-right:20%;
-}
-
-.bio-card{
-min-width:420px;
-height:540px;
-border-radius:35px;
-padding:35px;
-background:rgba(255,255,255,0.75);
-backdrop-filter:blur(20px);
-border:1px solid rgba(20,184,166,0.2);
-box-shadow:0 12px 30px rgba(0,0,0,0.08);
-transition:0.4s;
-flex-shrink:0;
-position:relative;
-overflow:hidden;
-}
-
-.bio-card.active{
-transform:scale(1.08);
-box-shadow:0 20px 40px rgba(20,184,166,0.15);
-}
-
-.bio-card::after{
-content:"";
-position:absolute;
-top:0;
-left:-100%;
-width:100%;
-height:100%;
-background:linear-gradient(
-90deg,
-transparent,
-rgba(255,255,255,0.35),
-transparent
+background:
+linear-gradient(
+135deg,
+#FF6666,
+#D94343
 );
-transition:0.7s;
-}
 
-.bio-card:hover::after{
-left:100%;
-}
+padding:60px 30px;
 
-.holo-top{
-font-family:'Orbitron';
-color:#14B8A6;
-margin-bottom:20px;
-font-size:14px;
-letter-spacing:2px;
-}
-
-.bio-icon{
-font-size:55px;
-margin-bottom:20px;
-}
-
-.bio-name{
-font-size:32px;
-font-weight:700;
-margin-bottom:25px;
-}
-
-.bio-content{
-line-height:2;
-font-size:18px;
-white-space:pre-line;
-}
-
-/* ======================
-SCREEN 6 FLOW
-====================== */
-
-.flow-wrap{
-display:flex;
-justify-content:center;
-gap:25px;
-margin-top:60px;
-flex-wrap:wrap;
-}
-
-.flow-box{
-padding:30px;
-background:white;
-border-radius:22px;
-box-shadow:0 8px 25px rgba(0,0,0,0.05);
-min-width:180px;
 text-align:center;
-font-weight:600;
+
+color:white;
+
+border-radius:25px 25px 0 0;
+
 }
 
-.flow-arrow{
-font-size:30px;
+.hero h1{
+
+font-size:38px;
+
+margin-bottom:15px;
+
+}
+
+.hero p{
+
+opacity:0.9;
+
+}
+
+.menu{
+
 display:flex;
-align-items:center;
-}
 
-/* ======================
-SCREEN 7 DREAM
-====================== */
-
-.dream-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:25px;
-margin-top:50px;
-}
-
-.dream-card{
 background:white;
-padding:45px;
-border-radius:30px;
-text-align:center;
-box-shadow:0 10px 25px rgba(0,0,0,0.05);
+
+}
+
+.menu button{
+
+flex:1;
+
+padding:18px;
+
+border:none;
+
+background:white;
+
+font-size:16px;
+
+cursor:pointer;
+
 transition:0.3s;
+
 }
 
-.dream-card:hover{
-transform:translateY(-10px);
+.menu button:hover{
+
+background:#FFF1F1;
+
 }
 
-.dream-card h3{
-font-size:50px;
-margin-bottom:25px;
-}
+.content{
 
-/* ======================
-MOBILE
-====================== */
+background:white;
 
-@media(max-width:900px){
-
-.monitor{
-width:100%;
 padding:35px;
+
+border-radius:0 0 25px 25px;
+
 }
 
-.monitor h1{
-font-size:30px;
+.section{
+
+display:none;
+
 }
 
-.data{
-grid-template-columns:1fr;
-font-size:17px;
+.active{
+
+display:block;
+
 }
 
-.call-card{
-width:100%;
-padding:35px;
+.card{
+
+background:white;
+
+padding:25px;
+
+margin-top:20px;
+
+border-radius:18px;
+
+border-left:7px solid #E95050;
+
+box-shadow:0 3px 10px rgba(0,0,0,0.08);
+
 }
 
-.call-text{
-font-size:18px;
+.card h2{
+
+color:#D94343;
+
+margin-bottom:15px;
+
 }
 
-.options{
-grid-template-columns:1fr;
+.card ul{
+
+padding-left:25px;
+
 }
 
-.timeline-wrap{
-flex-direction:column;
+.card li{
+
+margin:12px 0;
+
 }
 
-.timeline{
-width:100%;
+.highlight{
+
+color:#E23232;
+
+font-weight:bold;
+
 }
 
-.bio-card{
-min-width:320px;
-height:auto;
-}
+footer{
 
-.dream-grid{
-grid-template-columns:1fr;
-}
+background:#D94343;
 
-.flow-wrap{
-flex-direction:column;
-}
+color:white;
 
-.flow-arrow{
-transform:rotate(90deg);
-}
+text-align:center;
+
+padding:25px;
+
+margin-top:40px;
 
 }
 
 </style>
+
 </head>
+
 <body>
 
-  <!-- =========================
-SCREEN 1
-========================= -->
-
-<section id="screen1" class="screen active">
-
-<div class="monitor">
-
-<h1>PATIENT DETECTED</h1>
-
-<div class="data">
-
-<div class="blink">
-HEART RATE : 122 BPM
-</div>
-
-<div>
-BODY TEMP : 39.4°C
-</div>
-
-<div>
-OXYGEN : 88%
-</div>
-
-<div class="danger">
-RISK LEVEL : HIGH
-</div>
-
-</div>
-
-<div class="ecg-container">
-
-<svg viewBox="0 0 1200 150">
-
-<path class="ecg-line"
-
-d="
-M0 80
-L80 80
-L100 80
-L115 75
-L130 80
-L150 80
-
-L180 80
-L200 10
-L215 130
-L230 60
-L250 80
-
-L320 80
-L340 80
-
-L360 80
-L380 25
-L395 120
-L410 70
-L430 80
-
-L520 80
-L540 80
-
-L560 80
-L580 15
-L600 135
-L620 55
-L640 80
-
-L760 80
-
-L790 80
-L810 30
-L830 120
-L850 70
-L870 80
-
-L1200 80
-"/>
-
-</svg>
-
-</div>
-
-<div class="start">
-
-<button onclick="go('screen2')">
-START MISSION
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-
-
-<!-- =========================
-SCREEN 2
-========================= -->
-
-<section id="screen2" class="screen">
-
-<div class="call-card">
-
-<div class="call-title">
-📞 INCOMING EMERGENCY CALL
-</div>
-
-<div class="call-text">
-
-"환자가 숨을 잘 못 쉽니다"<br>
-
-"고열이 너무 심합니다"<br>
-
-"기침이 계속됩니다"<br><br>
-
-Location : School Gymnasium
-
-</div>
-
-<button onclick="go('screen3')">
-
-ACCEPT DISPATCH
-
-</button>
-
-</div>
-
-</section>
-
-
-
-<!-- =========================
-SCREEN 3
-========================= -->
-
-<section id="screen3" class="screen">
-
 <div class="container">
 
-<div class="title">
+<div class="hero">
 
-현장 도착 : 무엇을 먼저 판단해야 할까?
+<h1>🚑 응급구조사 × 감염성 질환 예방</h1>
 
-</div>
-
-<div class="patient">
-
-39.4℃ 고열<br>
-지속적 기침<br>
-호흡수 증가<br>
-피부 발진 확인
+<p>
+생명과학Ⅱ 교과 개념과 응급구조사의 실제 역할 연결하기
+</p>
 
 </div>
 
-<div class="options">
+<div class="menu">
 
-<div class="option" onclick="wrong(this)">
-즉시 이송
-</div>
+<button onclick="show('a')">
+교과 내용
+</button>
 
-<div class="option" onclick="wrong(this)">
-산소 공급
-</div>
+<button onclick="show('b')">
+응급구조사
+</button>
 
-<div class="option" onclick="correct(this)">
-감염 질환 가능성 확인
-</div>
-
-</div>
-
-<div id="feedback" class="feedback"></div>
-
-</div>
-
-</section>
-
-
-
-<!-- =========================
-SCREEN 4
-========================= -->
-
-<section id="screen4" class="screen">
-
-<div class="container">
-
-<div class="title">
-
-응급구조사의 실제 업무 흐름
-
-</div>
-
-<div class="timeline-wrap">
-
-<div class="timeline">
-
-<div class="step" onclick="showJob(0)">119 신고 접수</div>
-
-<div class="step" onclick="showJob(1)">현장 도착</div>
-
-<div class="step" onclick="showJob(2)">환자 상태 평가</div>
-
-<div class="step" onclick="showJob(3)">응급처치 실시</div>
-
-<div class="step" onclick="showJob(4)">감염 관리</div>
-
-<div class="step" onclick="showJob(5)">병원 인계</div>
-
-</div>
-
-<div id="jobBox" class="job-detail"></div>
-
-</div>
-
-<br><br>
-
-<button onclick="goBright('screen5')">
-
-NEXT
-
+<button onclick="show('c')">
+예방 실천
 </button>
 
 </div>
 
-</section>
+<div class="content">
 
-  <!-- =========================
-SCREEN 5 BIOLOGY SWIPE
-========================= -->
+<div id="a" class="section active">
 
-<section id="screen5" class="screen">
+<div class="card">
 
-<div class="container bio-section">
+<h2>🧬 감염성 질환이란?</h2>
 
-<div class="bio-title">
-
-응급구조사가 알아야 하는 생명과학
+<p>
+감염성 질환은 세균, 바이러스, 곰팡이 등의 병원체가 인체에 침입하여 발생한다.
+이를 예방하기 위해 면역과 위생 관리가 중요하다.
+</p>
 
 </div>
 
-<div class="swiper-container" id="swiper">
+<div class="card">
 
-<div class="swiper-track" id="track">
+<h2>📚 생명과학Ⅱ 핵심 개념</h2>
 
-<!-- CARD 1 -->
+<ul>
 
-<div class="bio-card active">
+<li>면역 반응</li>
 
-<div class="holo-top">BIO DATA ANALYSIS</div>
+<li>항원과 항체</li>
 
-<div class="bio-icon">🦠</div>
+<li>감염 경로 차단</li>
 
-<div class="bio-name">병원체</div>
+<li>예방 접종</li>
 
-<div class="bio-content">
-
-세균 / 바이러스 / 진균
-
-전파 방식
-
-• 비말 감염  
-• 접촉 감염  
-• 혈액 감염  
-
-EMT Connection
-
-감염 경로를 알아야  
-적절한 보호장비를 선택할 수 있다
+</ul>
 
 </div>
 
 </div>
 
 
-<!-- CARD 2 -->
 
-<div class="bio-card">
+<div id="b" class="section">
 
-<div class="holo-top">BIO DATA ANALYSIS</div>
+<div class="card">
 
-<div class="bio-icon">💉</div>
+<h2>🚨 응급구조사의 역할</h2>
 
-<div class="bio-name">백신</div>
+<p>
 
-<div class="bio-content">
+응급구조사는 응급 상황에서 환자의 생명을 보호하고
+감염 위험을 최소화하기 위한 처치를 수행한다.
 
-항체 형성 유도
+</p>
 
-• 생백신  
-• 사백신  
-• mRNA 백신  
+</div>
 
-EMT Connection
+<div class="card">
 
-예방접종 여부는  
-환자 상태 판단의 중요한 단서가 된다
+<h2>🩺 현장에서의 감염 예방</h2>
+
+<ul>
+
+<li>보호장비 착용</li>
+
+<li>환자 접촉 전후 손 위생</li>
+
+<li>오염 장비 관리</li>
+
+<li>감염 위험 상황 판단</li>
+
+</ul>
 
 </div>
 
 </div>
 
 
-<!-- CARD 3 -->
 
-<div class="bio-card">
+<div id="c" class="section">
 
-<div class="holo-top">BIO DATA ANALYSIS</div>
+<div class="card">
 
-<div class="bio-icon">🧬</div>
+<h2>🌱 내가 실천할 수 있는 예방</h2>
 
-<div class="bio-name">면역</div>
+<ul>
 
-<div class="bio-content">
+<li>올바른 손 씻기</li>
 
-B세포 → 항체 생성  
-T세포 → 감염세포 제거  
+<li>기침 예절 실천</li>
 
-EMT Connection
+<li>예방접종 참여</li>
 
-면역력이 약한 환자는  
-빠른 응급처치가 필요하다
+<li>생활 속 위생 습관</li>
 
-</div>
+</ul>
 
 </div>
 
+<div class="card">
 
-<!-- CARD 4 -->
+<h2>✨ 진로와의 연결</h2>
 
-<div class="bio-card">
+<p>
 
-<div class="holo-top">BIO DATA ANALYSIS</div>
+<span class="highlight">
 
-<div class="bio-icon">👥</div>
+응급구조사는 치료 이전에 감염을 예방하고
+환자와 의료진 모두의 안전을 지키는 역할을 수행한다.
 
-<div class="bio-name">집단면역</div>
+</span>
 
-<div class="bio-content">
-
-많은 사람이 백신 접종 시  
-질병 전파 속도가 감소한다  
-
-EMT Connection
-
-감염병 확산 위험을  
-예측하는 데 도움이 된다
+</p>
 
 </div>
 
@@ -913,468 +335,32 @@ EMT Connection
 
 </div>
 
-<br>
+<footer>
 
-<button onclick="go('screen6')">
+고2 생명과학Ⅱ × 응급구조사 진로 탐구
 
-NEXT
-
-</button>
-
-</div>
-
-</section>
-
-
-
-<!-- =========================
-SCREEN 6 CONNECTION
-========================= -->
-
-<section id="screen6" class="screen">
-
-<div class="container">
-
-<div class="title">
-
-생명과학은 현장에서 이렇게 연결된다
-
-</div>
-
-<div class="flow-wrap">
-
-<div class="flow-box">생명과학</div>
-
-<div class="flow-arrow">→</div>
-
-<div class="flow-box">감염병 이해</div>
-
-<div class="flow-arrow">→</div>
-
-<div class="flow-box">응급 판단</div>
-
-<div class="flow-arrow">→</div>
-
-<div class="flow-box">감염 예방</div>
-
-<div class="flow-arrow">→</div>
-
-<div class="flow-box">생명 구조</div>
-
-</div>
-
-<br><br>
-
-<button onclick="go('screen7')">
-
-NEXT
-
-</button>
-
-</div>
-
-</section>
-
-
-
-<!-- =========================
-SCREEN 7 FINAL
-========================= -->
-
-<section id="screen7" class="screen">
-
-<div class="container">
-
-<div class="title">
-
-왜 생명과학이 응급구조사에게 중요할까?
-
-</div>
-
-<div class="flow-wrap">
-
-<div class="flow-box">생명과학 수업</div>
-
-<div class="flow-arrow">↓</div>
-
-<div class="flow-box">감염성 질환 이해</div>
-
-<div class="flow-arrow">↓</div>
-
-<div class="flow-box">환자 증상 분석</div>
-
-<div class="flow-arrow">↓</div>
-
-<div class="flow-box">감염 경로 판단</div>
-
-<div class="flow-arrow">↓</div>
-
-<div class="flow-box">보호장비 선택</div>
-
-<div class="flow-arrow">↓</div>
-
-<div class="flow-box">안전한 응급처치</div>
-
-</div>
-
-<br><br>
-
-<div style="
-font-size:26px;
-line-height:2;
-text-align:center;
-margin-top:30px;
-font-weight:600;
-">
-
-몇 초의 판단은 생명을 살릴 수도 있다.<br><br>
-
-그리고 그 판단의 시작은<br>
-
-학교에서 배우는 생명과학이다.
-
-</div>
-
-<br><br>
-
-<button onclick="go('screen8')">
-
-NEXT
-
-</button>
-
-</div>
-
-</section>
-
-  <section id="screen8" class="screen">
-
-<div class="container">
-
-<div class="title">
-
-WHY I CHOOSE EMT
-
-</div>
-
-<div class="dream-grid">
-
-<div class="dream-card">
-
-<h3>❤️</h3>
-
-사람의 생명을  
-직접 지킬 수 있다
-
-</div>
-
-<div class="dream-card">
-
-<h3>⚡</h3>
-
-몇 초의 판단이  
-생존을 결정한다
-
-</div>
-
-<div class="dream-card">
-
-<h3>🧬</h3>
-
-생명과학 지식이  
-실제 현장에서 사용된다
-
-</div>
-
-</div>
-
-</div>
-
-  </section>
-
-  
-
+</footer>
 
 <script>
 
-  /* =========================
-SCREEN CHANGE
-========================= */
+function show(id){
 
-function go(id){
+document
+.querySelectorAll('.section')
 
-document.querySelectorAll(".screen").forEach(screen=>{
+.forEach(
+x=>x.classList.remove('active')
+);
 
-screen.classList.remove("active");
+document
+.getElementById(id)
 
-});
-
-document.getElementById(id).classList.add("active");
-
-}
-
-
-/* =========================
-BRIGHT MODE
-========================= */
-
-function goBright(id){
-
-document.body.classList.add("bright");
-
-go(id);
-
-setTimeout(()=>{
-
-updateSlider();
-
-},200);
+.classList.add('active');
 
 }
-
-
-/* =========================
-QUIZ
-========================= */
-
-function wrong(el){
-
-document.querySelectorAll(".option").forEach(option=>{
-
-option.classList.remove("correct");
-option.classList.remove("wrong");
-
-});
-
-el.classList.add("wrong");
-
-let box=document.getElementById("feedback");
-
-box.style.display="block";
-
-box.style.background="#3a1119";
-
-box.innerHTML=
-
-"❌ 잘못된 판단입니다.<br><br>응급구조사는 감염 여부를 먼저 판단하여 구조팀과 의료진의 2차 감염 위험을 예방해야 합니다.";
-
-}
-
-
-
-function correct(el){
-
-document.querySelectorAll(".option").forEach(option=>{
-
-option.classList.remove("correct");
-option.classList.remove("wrong");
-
-});
-
-el.classList.add("correct");
-
-let box=document.getElementById("feedback");
-
-box.style.display="block";
-
-box.style.background="#052f2a";
-
-box.innerHTML=
-
-"✅ 정확한 판단입니다.<br><br>감염성 질환 여부를 먼저 판단해야 적절한 보호장비를 착용하고 안전하게 환자를 처치할 수 있습니다.<br><br><button onclick='go(`screen4`)'>NEXT</button>";
-
-}
-
-
-
-/* =========================
-TIMELINE
-========================= */
-
-const jobs=[
-
-`📞 119 신고 접수
-
-• 신고자의 설명 확인  
-• 사고 위치 확인  
-• 필요한 장비 준비`,
-
-`🚑 현장 도착
-
-• 현장 위험요소 분석  
-• 환자에게 가장 먼저 접근  
-• 주변 환경 파악`,
-
-`🩺 환자 상태 평가
-
-• 의식 확인  
-• 활력징후 측정  
-• 응급 우선순위 결정`,
-
-`❤️ 응급처치 실시
-
-• CPR 시행  
-• 기도 확보  
-• 산소 공급  
-• 자동제세동기 사용`,
-
-`🦠 감염 관리
-
-• PPE 착용  
-• 감염 경로 파악  
-• 2차 감염 차단  
-• 격리 여부 판단`,
-
-`🏥 병원 인계
-
-• 응급실에 상태 전달  
-• 감염 가능성 전달  
-• 의료진에게 환자 인계`
-
-];
-
-
-function showJob(i){
-
-let box=document.getElementById("jobBox");
-
-box.style.display="block";
-
-box.innerHTML=jobs[i];
-
-}
-
-
-
-/* =========================
-SWIPE CARDS
-========================= */
-
-const track=document.getElementById("track");
-
-const cards=document.querySelectorAll(".bio-card");
-
-let current=0;
-let startX=0;
-let dragMove=0;
-let isDragging=false;
-
-
-function updateSlider(){
-
-track.style.transform=
-`translateX(-${current*450}px)`;
-
-cards.forEach(card=>{
-
-card.classList.remove("active");
-
-});
-
-cards[current].classList.add("active");
-
-}
-
-
-/* mouse */
-
-track.addEventListener("mousedown",(e)=>{
-
-isDragging=true;
-
-startX=e.clientX;
-
-track.style.transition="none";
-
-});
-
-
-window.addEventListener("mousemove",(e)=>{
-
-if(!isDragging) return;
-
-dragMove=e.clientX-startX;
-
-track.style.transform=
-`translateX(calc(-${current*450}px + ${dragMove}px))`;
-
-});
-
-
-window.addEventListener("mouseup",()=>{
-
-if(!isDragging) return;
-
-isDragging=false;
-
-track.style.transition="0.45s ease";
-
-if(dragMove<-80 && current<cards.length-1){
-
-current++;
-
-}
-
-else if(dragMove>80 && current>0){
-
-current--;
-
-}
-
-dragMove=0;
-
-updateSlider();
-
-});
-
-
-/* touch */
-
-let touchMove=0;
-
-
-track.addEventListener("touchstart",(e)=>{
-
-startX=e.touches[0].clientX;
-
-});
-
-
-track.addEventListener("touchmove",(e)=>{
-
-touchMove=e.touches[0].clientX-startX;
-
-track.style.transition="none";
-
-track.style.transform=
-`translateX(calc(-${current*450}px + ${touchMove}px))`;
-
-});
-
-
-track.addEventListener("touchend",()=>{
-
-track.style.transition="0.45s ease";
-
-if(touchMove<-70 && current<cards.length-1){
-
-current++;
-
-}
-
-else if(touchMove>70 && current>0){
-
-current--;
-
-}
-
-touchMove=0;
-
-updateSlider();
-
-});
 
 </script>
 
 </body>
+
 </html>
