@@ -2,7 +2,8 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>응급구조사의 5분</title>
 
 <style>
@@ -15,7 +16,7 @@ font-family:"맑은 고딕";
 }
 
 body{
-background:black;
+background:#050505;
 color:white;
 overflow:hidden;
 }
@@ -27,62 +28,79 @@ height:100vh;
 justify-content:center;
 align-items:center;
 flex-direction:column;
+padding:30px;
 }
 
 .active{
 display:flex;
 }
 
+/* 시작 */
+
 .monitor{
-font-size:26px;
-color:#00ff99;
+
+width:90%;
+
+max-width:1000px;
+
+height:500px;
+
+border:3px solid #00ff95;
+
+border-radius:30px;
+
+padding:40px;
+
+box-shadow:
+0 0 40px #00ff95;
+
 }
 
-.ecg{
-width:700px;
-height:120px;
-overflow:hidden;
+.status{
+
+display:flex;
+
+justify-content:space-between;
+
+font-size:28px;
+
+color:#00ff95;
+
+}
+
+svg{
+
+margin-top:60px;
+
+width:100%;
+
+height:220px;
+
 }
 
 .wave{
 
-width:1600px;
-height:4px;
+fill:none;
 
-background:
-linear-gradient(
-90deg,
+stroke:#00ff95;
 
-#00ff99 10%,
-transparent 10%,
+stroke-width:4;
 
-transparent 18%,
+stroke-linecap:round;
 
-#00ff99 18%,
+stroke-dasharray:1800;
 
-#00ff99 19%,
+stroke-dashoffset:1800;
 
-transparent 19%
-
-);
-
-animation:move 3s linear infinite;
+animation:draw 3s linear infinite;
 
 }
 
-@keyframes move{
+@keyframes draw{
 
-0%{
+to{
 
-transform:
-translateX(0);
-
-}
-
-100%{
-
-transform:
-translateX(-500px);
+stroke-dashoffset:0;
 
 }
 
@@ -90,70 +108,115 @@ translateX(-500px);
 
 .start{
 
-margin-top:40px;
+margin-top:50px;
 
 padding:20px 80px;
 
-border:none;
+font-size:25px;
 
-font-size:24px;
+border:none;
 
 border-radius:20px;
 
-background:#00ff99;
+background:#00ff95;
 
 }
 
-.card{
+
+
+/* 상황 */
+
+.story{
+
+max-width:850px;
+
+padding:60px;
 
 background:#111;
 
-padding:40px;
+border-radius:30px;
 
-border-radius:20px;
+line-height:2;
 
-width:900px;
+font-size:26px;
 
 }
 
+#typing{
+
+min-height:300px;
+
+}
+
+.next{
+
+display:none;
+
+margin-top:40px;
+
+}
+
+
+
+/* 문제 */
+
 .timer{
 
-font-size:42px;
+position:absolute;
 
-color:#ff5b5b;
+top:30px;
+
+right:40px;
+
+font-size:50px;
+
+color:#ff5252;
+
+}
+
+.quiz{
+
+max-width:900px;
+
+background:#121212;
+
+padding:50px;
+
+border-radius:30px;
 
 }
 
 .choice{
 
-background:#1d1d1d;
+background:#222;
 
-padding:20px;
+padding:25px;
 
-margin-top:15px;
+margin-top:20px;
 
 cursor:pointer;
 
-border-radius:15px;
+border-radius:20px;
 
 }
 
 .choice:hover{
 
-background:#333;
+transform:translateX(10px);
 
 }
 
 .people{
 
-display:grid;
-
-grid-template-columns:
-repeat(5,70px);
-
-gap:20px;
+display:none;
 
 margin-top:30px;
+
+grid-template-columns:
+
+repeat(6,60px);
+
+gap:15px;
 
 }
 
@@ -165,9 +228,7 @@ height:50px;
 
 border-radius:50%;
 
-background:black;
-
-border:4px solid white;
+border:3px solid white;
 
 }
 
@@ -175,29 +236,27 @@ border:4px solid white;
 
 background:red;
 
-animation:spread .5s;
+animation:boom .5s;
 
 }
 
-@keyframes spread{
+@keyframes boom{
 
 from{
 
-transform:
-scale(.3);
+transform:scale(.3);
 
 }
 
 to{
 
-transform:
-scale(1);
+transform:scale(1);
 
 }
 
 }
 
-.result{
+.feedback{
 
 margin-top:30px;
 
@@ -205,27 +264,59 @@ line-height:2;
 
 }
 
-.score{
 
-font-size:35px;
 
-line-height:2;
+/* 교과 */
+
+.cards{
+
+display:flex;
+
+gap:40px;
+
+align-items:center;
 
 }
+
+.card{
+
+padding:50px;
+
+border-radius:30px;
+
+}
+
+.center{
+
+background:white;
+
+color:black;
+
+width:450px;
+
+}
+
+.side{
+
+opacity:.2;
+
+transform:scale(.7);
+
+}
+
+
+
+/* 챗 */
 
 input{
 
-width:600px;
+width:700px;
 
-padding:15px;
+padding:20px;
+
+font-size:18px;
 
 margin:20px;
-
-}
-
-button{
-
-padding:15px 40px;
 
 }
 
@@ -233,7 +324,25 @@ padding:15px 40px;
 
 margin-top:30px;
 
-font-size:20px;
+background:#151515;
+
+padding:40px;
+
+width:850px;
+
+border-radius:25px;
+
+line-height:2;
+
+}
+
+button{
+
+padding:18px 50px;
+
+border:none;
+
+border-radius:20px;
 
 }
 
@@ -243,38 +352,46 @@ font-size:20px;
 
 <body>
 
-<!-- 시작 -->
-
-<div
-class="page active"
-id="intro">
+<div id="intro" class="page active">
 
 <div class="monitor">
 
-HR 118 BPM
+<div class="status">
 
-<br>
+<div>HR 118</div>
 
-BP 128 / 80
+<div>SpO₂ 95%</div>
 
-<br>
-
-SpO₂ 95%
+<div>BP 128/80</div>
 
 </div>
 
-<br>
+<svg viewBox="0 0 1200 250">
 
-<div class="ecg">
+<path
+class="wave"
 
-<div class="wave">
+d="
+M0 120
+L160 120
+L180 100
+L200 120
+L220 120
+L240 30
+L260 220
+L280 120
+L400 120
+L420 90
+L440 120
+L470 20
+L500 230
+L530 120
+L1200 120
+"/>
 
-</div>
-
-</div>
+</svg>
 
 <button
-
 class="start"
 
 onclick="start()">
@@ -285,146 +402,30 @@ START
 
 </div>
 
-
-
-<!-- 게임 -->
-
-<div
-
-class="page"
-
-id="game">
-
-<div class="card">
-
-<h1>
-
-🚑 응급구조사의 5분
-
-</h1>
-
-<br>
-
-<div
-
-class="timer"
-
-id="timer">
-
-05:00
-
-</div>
-
-<br>
-
-<h2>
-
-상황
-
-</h2>
-
-<br>
-
-학교 축제 중 학생이
-
-38.7℃ 발열,
-
-기침,
-
-인후통,
-
-피로를 호소한다.
-
-주변 학생들과 접촉 중이다.
-
-<br><br>
-
-<h2>
-
-응급구조사의 첫 행동
-
-</h2>
-
-<div
-class="choice"
-
-onclick="pick(1)">
-
-① 바로 가까이 접근
-
-</div>
-
-<div
-class="choice"
-
-onclick="pick(2)">
-
-② 손 위생 + 마스크 후 상태 확인
-
-</div>
-
-<div
-class="choice"
-
-onclick="pick(3)">
-
-③ 친구들을 모아 이동
-
-</div>
-
-<div
-
-class="people"
-
-id="map">
-
-</div>
-
-<div
-
-class="result"
-
-id="result">
-
-</div>
-
-</div>
-
 </div>
 
 
 
-<!-- 결과 -->
-
 <div
+id="story"
 
-class="page"
+class="page">
 
-id="report">
+<div class="story">
 
-<div class="card">
+🚨 응급 출동
 
-<h1>
-
-📋 응급구조사 리포트
-
-</h1>
-
-<br>
-
-<div
-
-class="score"
-
-id="score">
-
-</div>
+<div id="typing"></div>
 
 <button
 
-onclick="goChat()">
+class="next"
 
-감염병 궁금증 질문하기
+id="go"
+
+onclick="quiz()">
+
+판단 시작
 
 </button>
 
@@ -434,17 +435,154 @@ onclick="goChat()">
 
 
 
-<!-- 챗봇 -->
+<div
+id="game"
+
+class="page">
 
 <div
+class="timer"
 
-class="page"
+id="timer">
 
-id="chat">
+05:00
+
+</div>
+
+<div class="quiz">
 
 <h1>
 
-🧬 감염병 질문하기
+상황 1
+
+</h1>
+
+<br>
+
+학교 축제 현장
+
+학생 발열 + 기침 + 피로
+
+주변 학생 접촉 중
+
+<br><br>
+
+<div
+class="choice"
+
+onclick="solve(false)">
+
+① 바로 접근
+
+</div>
+
+<div
+class="choice"
+
+onclick="solve(true)">
+
+② 손 위생 후 접근
+
+</div>
+
+<div
+class="choice"
+
+onclick="solve(false)">
+
+③ 학생 이동
+
+</div>
+
+<div
+class="people"
+
+id="spread">
+
+</div>
+
+<div
+class="feedback"
+
+id="fb">
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div
+id="concept"
+
+class="page">
+
+<h1>
+
+🧬 생명과학Ⅱ 개념 정리
+
+</h1>
+
+<br>
+
+<div class="cards">
+
+<div class="card side">
+
+병원체
+
+</div>
+
+<div class="card center">
+
+감염 예방은
+
+병원체의 전파 경로를
+
+차단하는 것이다.
+
+<br><br>
+
+응급구조사는
+
+환자 처치 이전에
+
+감염 위험을 평가한다.
+
+</div>
+
+<div class="card side">
+
+면역
+
+</div>
+
+</div>
+
+<br>
+
+<button
+
+onclick="chat()">
+
+질문하기
+
+</button>
+
+</div>
+
+
+
+<div
+id="chat"
+
+class="page">
+
+<h1>
+
+💬 감염병 질문
 
 </h1>
 
@@ -454,7 +592,7 @@ id="q"
 
 placeholder=
 
-"예) 왜 손 씻기가 중요해?"
+"질문 입력"
 
 >
 
@@ -476,57 +614,79 @@ id="a">
 
 </div>
 
+
+
 <script>
 
-let sec=300;
+const text=
+`학교 축제 현장.
+학생 1명이 고열과 기침을 보인다.
 
-let infected=1;
+주변 학생과 접촉 중이다.
 
-let point=0;
+당신은 응급구조사이다.
 
-function make(){
+5분 안에
+감염 확산을 막아라.`;
 
-for(
 
-let i=0;
+function show(id){
 
-i<15;
+document
 
-i++
+.querySelectorAll(".page")
 
-){
+.forEach(
 
-map.innerHTML+=
+x=>
 
-"<div class='person'></div>";
+x.classList.remove("active")
+
+);
+
+document
+
+.getElementById(id)
+
+.classList.add("active");
 
 }
-
-map.children[7]
-
-.classList.add("red");
-
-}
-
-make();
 
 function start(){
 
-intro.classList.remove("active");
+show("story");
 
-game.classList.add("active");
+let i=0;
 
-run();
+let t=
+
+setInterval(()=>{
+
+typing.innerHTML+=text[i];
+
+i++;
+
+if(i===text.length){
+
+clearInterval(t);
+
+go.style.display="block";
 
 }
 
-function run(){
+},40);
 
-setInterval(
+}
 
-()=>{
+function quiz(){
 
-sec--;
+show("game");
+
+}
+
+let sec=300;
+
+setInterval(()=>{
 
 let m=
 
@@ -536,7 +696,7 @@ Math.floor(sec/60)
 
 )
 
-.padStart(2,"0");
+.padStart(2,0);
 
 let s=
 
@@ -546,27 +706,76 @@ sec%60
 
 )
 
-.padStart(2,"0");
+.padStart(2,0);
 
 timer.innerHTML=
 
 m+":"+s;
 
-},
+sec--;
 
-1000
+},1000);
+
+function solve(ok){
+
+if(ok){
+
+fb.innerHTML=
+
+`
+🟢 성공
+
+<br><br>
+
+[교과]
+
+감염 예방은
+
+전파 경로 차단
+
+`;
+
+setTimeout(
+
+()=>show("concept"),
+
+4000
 
 );
 
 }
 
-function spread(){
+else{
+
+spread.style.display="grid";
+
+for(
+
+let i=0;
+
+i<18;
+
+i++
+
+){
+
+let p=
+
+document
+
+.createElement("div");
+
+p.className="person";
+
+spread.appendChild(p);
+
+}
 
 let arr=
 
 [
 
-2,4,8,10,12,13
+5,6,7,8,9,10
 
 ];
 
@@ -578,13 +787,11 @@ setTimeout(
 
 ()=>{
 
-map.children[v]
+spread.children[v]
 
-.classList.add(
+.classList
 
-"red"
-
-);
+.add("red");
 
 },
 
@@ -596,83 +803,20 @@ i*500
 
 );
 
-}
-
-function pick(n){
-
-if(n===2){
-
-point=95;
-
-result.innerHTML=
+fb.innerHTML=
 
 `
-
-🟢 감염 확산 차단 성공
-
-<br><br>
-
-[생명과학Ⅱ]
-
-감염성 질환 예방은
-
-병원체의 전파 경로를 차단하는 것이 중요하다.
-
-비말·접촉 감염을 줄이는 행동이 필요하다.
+🔴 확산 발생
 
 <br><br>
 
-[응급구조사]
-
-현장 접근 전
-
-감염 위험 평가와
-
-보호장비 사용이 우선된다.
+잘못된 판단
 
 `;
-
-}
-
-else{
-
-point=45;
-
-spread();
-
-result.innerHTML=
-
-`
-
-🔴 감염 확산 발생
-
-<br><br>
-
-[생명과학Ⅱ]
-
-병원체는 사람 간 접촉과
-
-비말을 통해 전파될 수 있다.
-
-초기 예방 실패는
-
-확산 위험을 증가시킨다.
-
-<br><br>
-
-[응급구조사]
-
-응급처치 이전에
-
-현장 안전 확보가 중요하다.
-
-`;
-
-}
 
 setTimeout(
 
-finish,
+()=>show("concept"),
 
 6000
 
@@ -680,54 +824,11 @@ finish,
 
 }
 
-function finish(){
-
-game.classList.remove("active");
-
-report.classList.add("active");
-
-score.innerHTML=
-
-`
-
-감염 예방 점수
-
-${point}
-
-점
-
-<br>
-
-${
-point>90
-
-?
-
-"🚑 응급구조사 판단 우수"
-
-:
-
-"📘 감염 예방 개념 복습 추천"
-
 }
 
-`;
+function chat(){
 
-}
-
-function goChat(){
-
-report.classList.remove(
-
-"active"
-
-);
-
-chat.classList.add(
-
-"active"
-
-);
+show("chat");
 
 }
 
@@ -741,50 +842,43 @@ document
 
 .value;
 
-let text="";
+let a="";
 
-if(
+if(q.length<3)
 
-q.includes("손")
+a="질문을 조금 더 자세히 입력해줘.";
 
-)
+else{
 
-text=
+a=
+`
+질문:
 
-"손 위생은 접촉 감염 경로를 줄여 병원체 전파를 예방합니다.";
+${q}
 
-else if(
+감염병은
+병원체,
+전파,
+면역,
+예방 행동을
+함께 고려해야 해.
 
-q.includes("백신")
+응급구조사는
+초기 평가와
+감염 예방을 수행해.
+`;
 
-)
+}
 
-text=
+document
 
-"예방접종은 항원을 미리 경험해 면역 기억 형성을 돕습니다.";
+.getElementById("a")
 
-else if(
-
-q.includes("감염")
-
-)
-
-text=
-
-"감염성 질환 예방의 핵심은 전파 경로 차단입니다.";
-
-else
-
-text=
-
-"응급구조사는 환자 평가와 감염 예방을 함께 수행합니다.";
-
-a.innerHTML=text;
+.innerHTML=a;
 
 }
 
 </script>
 
 </body>
-
 </html>
