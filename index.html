@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 
-<title>응급구조사 × 감염 예방 체험</title>
+<title>오늘 나는 응급구조사</title>
 
 <style>
 
@@ -21,17 +21,15 @@ body{
 background:
 linear-gradient(
 135deg,
-#E8FFFA,
-#EAF1FF
+#fff2f2,
+#eef7ff
 );
 
 }
 
-.container{
+.wrap{
 
-width:90%;
-
-max-width:900px;
+max-width:850px;
 
 margin:40px auto;
 
@@ -42,17 +40,17 @@ margin:40px auto;
 background:
 linear-gradient(
 135deg,
-#18B49F,
-#5A7CF2
+#ff7373,
+#ff5656
 );
 
-padding:60px;
-
-text-align:center;
+padding:70px;
 
 color:white;
 
-border-radius:25px;
+text-align:center;
+
+border-radius:30px;
 
 }
 
@@ -60,21 +58,65 @@ border-radius:25px;
 
 background:white;
 
-padding:25px;
+padding:35px;
 
 margin-top:25px;
 
-border-radius:20px;
+border-radius:25px;
 
-box-shadow:0 5px 20px rgba(0,0,0,0.08);
+box-shadow:0 8px 25px rgba(0,0,0,.08);
 
 }
 
 h2{
 
-color:#178E87;
+color:#e54c4c;
 
-margin-bottom:15px;
+margin-bottom:20px;
+
+}
+
+.choice{
+
+background:#fff6f6;
+
+padding:18px;
+
+margin-top:12px;
+
+border-radius:15px;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.choice:hover{
+
+transform:translateY(-3px);
+
+}
+
+.result{
+
+margin-top:20px;
+
+padding:20px;
+
+background:#f6fffd;
+
+border-radius:15px;
+
+display:none;
+
+}
+
+.next{
+
+display:none;
+
+margin-top:20px;
 
 }
 
@@ -82,57 +124,25 @@ button{
 
 padding:14px;
 
-margin-top:10px;
+width:100%;
 
 border:none;
 
-border-radius:12px;
+border-radius:14px;
 
-background:#1AA698;
+background:#e54c4c;
 
 color:white;
 
-width:100%;
-
 }
 
-input{
+.score{
 
-width:100%;
+font-size:22px;
 
-padding:15px;
+text-align:center;
 
-margin-top:10px;
-
-border:1px solid #ddd;
-
-border-radius:10px;
-
-}
-
-.result{
-
-margin-top:15px;
-
-padding:20px;
-
-background:#F4FFFD;
-
-border-radius:15px;
-
-}
-
-.option{
-
-background:#EEFDFB;
-
-padding:15px;
-
-margin-top:10px;
-
-border-radius:12px;
-
-cursor:pointer;
+color:#2b7d72;
 
 }
 
@@ -142,15 +152,15 @@ cursor:pointer;
 
 <body>
 
-<div class="container">
+<div class="wrap">
 
 <div class="hero">
 
-<h1>🚑 응급구조사 × 감염 예방 체험</h1>
+<h1>🚑 오늘 나는 응급구조사</h1>
 
 <p>
 
-생명과학Ⅱ 감염성 질환 예방 단원
+당신의 선택이 감염 예방을 바꾼다
 
 </p>
 
@@ -158,365 +168,324 @@ cursor:pointer;
 
 
 
-<div class="card">
+<div class="card" id="game">
 
-<h2>① 응급구조사 되어보기</h2>
+<h2 id="title">
 
-<p>
+상황 1
 
-친구가 열이 나고 기침하며 힘들어한다.
+</h2>
+
+<p id="story">
+
+점심시간,
+친구가 열이 난다고 하며 계속 기침한다.
+
+당신은?
 
 </p>
 
-<div class="option"
-
-onclick="choice(1)">
-
-① 바로 부축한다
-
-</div>
-
-<div class="option"
-
-onclick="choice(2)">
-
-② 마스크 착용 후 상태 확인
-
-</div>
-
-<div class="option"
-
-onclick="choice(3)">
-
-③ 주변 사람부터 대피
-
-</div>
+<div id="choices"></div>
 
 <div
+
 class="result"
-id="scenario">
 
-선택해보세요.
-
-</div>
+id="result">
 
 </div>
 
+<div class="next">
 
+<button onclick="next()">
 
-<div class="card">
-
-<h2>② 감염 위험 시뮬레이터</h2>
-
-<input
-
-id="risk"
-
-placeholder=
-
-"예: 기침했고 손 안 씻음">
-
-<button
-
-onclick="risk()">
-
-확인
+다음 상황 →
 
 </button>
 
-<div
-
-class="result"
-
-id="riskResult">
-
-입력 대기중
-
-</div>
-
-</div>
-
-
-
-<div class="card">
-
-<h2>③ 감염 예방 Q&A</h2>
-
-<input
-
-id="chat"
-
-placeholder=
-
-"손만 씻으면 예방되나요?">
-
-<button
-
-onclick="chat()">
-
-질문하기
-
-</button>
-
-<div
-
-class="result"
-
-id="answer">
-
-질문해보세요.
-
-</div>
-
-</div>
-
-
-
-<div class="card">
-
-<h2>④ 내 상태 체크</h2>
-
-<input
-
-id="state"
-
-placeholder=
-
-"예: 피곤하고 목이 따가움">
-
-<button
-
-onclick="state()">
-
-확인
-
-</button>
-
-<div
-
-class="result"
-
-id="stateResult">
-
-입력 대기중
-
-</div>
-
-</div>
-
-
-
-<div class="card">
-
-<h2>⑤ 오늘의 예방 미션</h2>
-
-<button
-
-onclick="mission()">
-
-생성하기
-
-</button>
-
-<div
-
-class="result"
-
-id="mission">
-
-버튼 클릭
-
 </div>
 
 </div>
 
 </div>
+
+
 
 <script>
 
-function choice(num){
-
-let text="";
-
-if(num==1)
-
-text=
-"⚠ 감염 위험 고려 부족";
-
-if(num==2)
-
-text=
-"✅ 응급구조사와 가까운 판단";
-
-if(num==3)
-
-text=
-"🟡 상황에 따라 가능";
-
-document
-.getElementById("scenario")
-
-.innerHTML=text;
-
-}
-
-function risk(){
-
-let t=
-
-document
-.getElementById("risk")
-
-.value;
-
 let score=0;
 
-if(t.includes("기침"))score++;
+let current=0;
 
-if(t.includes("열"))score++;
+const data=[
 
-if(t.includes("손"))score++;
+{
 
-if(t.includes("접촉"))score++;
+title:"상황 1",
 
-let result=
+story:
+"친구가 열이 나고 기침한다.",
 
-score>=3
+choice:[
 
-?
+"바로 부축한다",
 
-"🔴 예방 행동 강화 권장"
+"손 위생 후 상태 확인",
 
-:
+"많은 친구들을 부른다"
 
-score>=2
+],
 
-?
+answer:1,
 
-"🟡 생활 위생 강화"
+msg:
 
-:
+"좋아요! 응급구조사는 먼저 감염 가능성을 고려하고 안전하게 접근합니다."
 
-"🟢 기본 예방 유지";
+},
 
-document
-.getElementById("riskResult")
+{
 
-.innerHTML=result;
+title:"상황 2",
 
-}
+story:
+"환자가 구토 후 탈수 증상을 보인다.",
 
-function chat(){
+choice:[
 
-let q=
+"물만 계속 준다",
 
-document
-.getElementById("chat")
+"상태 관찰 후 도움 요청",
 
-.value;
+"여럿이 가까이 모인다"
 
-let a="";
+],
 
-if(q.includes("손"))
+answer:1,
 
-a="손 씻기는 중요하지만 단독 예방 방법은 아닙니다.";
+msg:
 
-else if(q.includes("마스크"))
+"좋아요! 증상 평가와 위생 관리가 중요합니다."
 
-a="상황에 맞게 사용하면 감염 전파 감소에 도움이 됩니다.";
+},
 
-else
+{
 
-a="감염 예방은 위생·환경·생활습관을 함께 고려합니다.";
+title:"상황 3",
 
-document
-.getElementById("answer")
+story:
+"환자가 피부 발진과 가려움을 호소한다.",
 
-.innerHTML=a;
+choice:[
 
-}
+"바로 접촉",
 
-function state(){
+"청결 유지 후 상태 확인",
 
-let t=
+"아무 조치 안 함"
 
-document
-.getElementById("state")
+],
 
-.value;
+answer:1,
 
-let result="";
+msg:
 
-if(
-
-t.includes("기침")
-
-||
-
-t.includes("열")
-
-)
-
-result=
-"🫁 호흡기 증상 관찰";
-
-else if(
-
-t.includes("배")
-
-||
-
-t.includes("설사")
-
-)
-
-result=
-"🍽 위생 관리";
-
-else
-
-result=
-"🌱 생활 관리";
-
-document
-.getElementById("stateResult")
-
-.innerHTML=result;
+"좋아요! 감염 전파 예방과 초기 판단이 중요합니다."
 
 }
-
-function mission(){
-
-let arr=[
-
-"✔ 손 씻기",
-
-"✔ 물 마시기",
-
-"✔ 환기",
-
-"✔ 기침 예절",
-
-"✔ 수면"
 
 ];
 
-let random=
-
-arr
-
-.sort(()=>0.5-Math.random())
-
-.slice(0,3)
-
-.join("<br>");
+function render(){
 
 document
-.getElementById("mission")
+.getElementById("title")
 
-.innerHTML=random;
+.innerHTML
+
+=
+
+data[current].title;
+
+document
+.getElementById("story")
+
+.innerHTML
+
+=
+
+data[current].story;
+
+let html="";
+
+data[current]
+
+.choice
+
+.forEach(
+
+(v,i)=>
+
+html+=
+
+`<div class='choice'
+
+onclick='pick(${i})'>
+
+${v}
+
+</div>`
+
+);
+
+document
+.getElementById("choices")
+
+.innerHTML
+
+=
+
+html;
+
+document
+.getElementById("result")
+
+.style.display
+
+=
+
+"none";
+
+document
+.querySelector(".next")
+
+.style.display
+
+=
+
+"none";
 
 }
+
+function pick(i){
+
+let r=
+
+document
+.getElementById("result");
+
+r.style.display=
+
+"block";
+
+if(
+
+i===
+
+data[current].answer
+
+){
+
+score++;
+
+r.innerHTML=
+
+"✅ "
+
++
+
+data[current].msg;
+
+}
+
+else{
+
+r.innerHTML=
+
+"⚠ 응급구조사는 감염 위험과 환자 안전을 함께 고려합니다.";
+
+}
+
+document
+.querySelector(".next")
+
+.style.display
+
+=
+
+"block";
+
+}
+
+function next(){
+
+current++;
+
+if(
+
+current>=
+
+data.length
+
+){
+
+document
+.getElementById("game")
+
+.innerHTML=
+
+`
+
+<h2>
+
+결과 완료
+
+</h2>
+
+<div class='score'>
+
+🚑 응급구조사 적성
+
+<br><br>
+
+${score}/3
+
+<br><br>
+
+${
+score==3
+
+?
+
+"감염 예방 판단 우수"
+
+:
+
+score==2
+
+?
+
+"좋은 판단"
+
+:
+
+"예방 개념 다시 확인"
+
+}
+
+</div>
+
+`;
+
+return;
+
+}
+
+render();
+
+}
+
+render();
 
 </script>
 
