@@ -9,9 +9,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
+
+/* ======================
+RESET
+====================== */
 
 *{
 margin:0;
@@ -20,32 +24,61 @@ box-sizing:border-box;
 }
 
 body{
-background:#F8FAFC;
-font-family:'Pretendard',sans-serif;
+font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+background:#07111b;
+color:white;
 overflow:hidden;
+transition:1s;
+position:relative;
+}
+
+body.bright{
+background:#f8fafc;
 color:#111827;
 }
 
-/* 전체 화면 */
+body::before{
+content:"";
+position:fixed;
+width:200%;
+height:200%;
+background:
+radial-gradient(circle at 20% 30%, rgba(0,255,200,0.04), transparent 30%),
+radial-gradient(circle at 80% 60%, rgba(20,184,166,0.04), transparent 30%);
+animation:bgmove 12s linear infinite;
+z-index:-1;
+}
+
+@keyframes bgmove{
+0%{transform:translate(0,0);}
+50%{transform:translate(-5%, -3%);}
+100%{transform:translate(0,0);}
+}
 
 .screen{
-width:100vw;
+position:absolute;
+width:100%;
 height:100vh;
 display:none;
 justify-content:center;
 align-items:center;
 padding:40px;
-animation:fade 0.7s ease;
+animation:fade 0.8s ease;
 }
 
 .active{
 display:flex;
 }
 
+.container{
+width:1300px;
+max-width:95%;
+}
+
 @keyframes fade{
 from{
 opacity:0;
-transform:translateY(30px);
+transform:translateY(20px);
 }
 to{
 opacity:1;
@@ -53,120 +86,159 @@ transform:translateY(0);
 }
 }
 
-.container{
-width:1200px;
-max-width:95%;
-}
-
-/* 버튼 */
-
 button{
+padding:18px 34px;
 border:none;
+border-radius:20px;
 cursor:pointer;
-padding:16px 30px;
-border-radius:18px;
-font-size:17px;
+font-size:16px;
 font-weight:600;
 transition:0.3s;
-background:#14B8A6;
+background:#00bfa6;
 color:white;
-font-family:'Pretendard';
+box-shadow:0 8px 20px rgba(20,184,166,0.2);
 }
 
 button:hover{
-transform:scale(1.05);
+transform:scale(1.04);
+box-shadow:0 12px 28px rgba(20,184,166,0.3);
 }
 
-/* ==========================
-SCREEN 1
-========================== */
+/* ======================
+SCREEN 1 MONITOR
+====================== */
 
 .monitor{
-background:#111827;
-color:#14B8A6;
-padding:70px;
+width:900px;
+padding:60px;
+background:rgba(10,20,30,0.75);
+backdrop-filter:blur(18px);
+border:1px solid rgba(0,255,200,0.2);
 border-radius:30px;
-box-shadow:0 0 40px rgba(20,184,166,0.15);
-text-align:center;
+box-shadow:0 0 40px rgba(0,255,180,0.08);
 }
 
 .monitor h1{
 font-family:'Orbitron';
-font-size:65px;
+font-size:55px;
+color:#00ffc8;
 margin-bottom:40px;
+text-align:center;
+letter-spacing:2px;
 }
 
-.monitor-data{
+.data{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:20px;
 font-family:'Orbitron';
-font-size:24px;
+font-size:22px;
 line-height:2;
 margin-bottom:40px;
 }
 
-.heartbeat{
-width:100%;
-height:80px;
-margin:30px 0;
-position:relative;
+.blink{
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+50%{
+opacity:0.3;
+}
+}
+
+.danger{
+color:#ff4d6d;
+animation:pulse 1.2s infinite;
+}
+
+@keyframes pulse{
+50%{
+transform:scale(1.05);
+}
+}
+
+/* ECG */
+
+.ecg-container{
+margin-top:40px;
+height:140px;
 overflow:hidden;
+position:relative;
 }
 
-.line{
-position:absolute;
+svg{
 width:200%;
-height:3px;
-background:#14B8A6;
-top:50%;
-animation:move 3s linear infinite;
+height:140px;
+position:absolute;
+left:0;
+animation:ecgMove 4s linear infinite;
 }
 
-@keyframes move{
-0%{left:-100%;}
-100%{left:100%;}
+@keyframes ecgMove{
+0%{transform:translateX(0);}
+100%{transform:translateX(-50%);}
 }
 
-/* ==========================
-CALL SCREEN
-========================== */
+.ecg-line{
+fill:none;
+stroke:#00ffc8;
+stroke-width:4;
+stroke-linejoin:round;
+stroke-linecap:round;
+filter:drop-shadow(0 0 6px #00ffc8);
+}
+
+.start{
+margin-top:40px;
+display:flex;
+justify-content:center;
+}
+
+/* ======================
+SCREEN 2 CALL
+====================== */
 
 .call-card{
-background:white;
+width:850px;
 padding:60px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(15px);
 border-radius:30px;
-box-shadow:0 10px 30px rgba(0,0,0,0.07);
-width:800px;
+border:1px solid rgba(255,255,255,0.1);
 }
 
 .call-title{
 font-family:'Orbitron';
-font-size:35px;
-margin-bottom:30px;
+font-size:34px;
+margin-bottom:35px;
+color:#00ffc8;
 }
 
 .call-text{
-font-size:24px;
-line-height:2;
+font-size:25px;
+line-height:2.2;
 margin-bottom:40px;
 }
 
-/* ==========================
-DECISION
-========================== */
+/* ======================
+SCREEN 3 DECISION
+====================== */
 
 .title{
-font-size:40px;
-font-weight:700;
+font-size:42px;
 margin-bottom:30px;
+font-weight:700;
 }
 
 .patient{
-background:white;
-padding:30px;
+background:rgba(255,255,255,0.07);
+padding:35px;
 border-radius:25px;
-box-shadow:0 5px 20px rgba(0,0,0,0.06);
 margin-bottom:40px;
+font-size:22px;
 line-height:2;
-font-size:20px;
+backdrop-filter:blur(12px);
 }
 
 .options{
@@ -176,217 +248,401 @@ gap:20px;
 }
 
 .option{
-background:white;
+background:rgba(255,255,255,0.08);
 padding:30px;
 border-radius:25px;
 cursor:pointer;
 text-align:center;
-transition:0.3s;
-box-shadow:0 5px 15px rgba(0,0,0,0.06);
+transition:0.35s;
+backdrop-filter:blur(10px);
 }
 
 .option:hover{
 transform:translateY(-8px);
 }
 
-.option.active{
-background:#14B8A6;
-color:white;
-transform:scale(1.07);
-box-shadow:0 0 30px rgba(20,184,166,0.5);
+.option.correct{
+background:#00bfa6;
+transform:scale(1.06);
+box-shadow:0 0 30px rgba(0,255,200,0.4);
+}
+
+.option.wrong{
+background:#ff4d6d;
+animation:shake 0.3s;
+}
+
+@keyframes shake{
+25%{transform:translateX(-8px);}
+50%{transform:translateX(8px);}
+75%{transform:translateX(-6px);}
 }
 
 .feedback{
 margin-top:30px;
-padding:25px;
+padding:30px;
 border-radius:20px;
 display:none;
 line-height:2;
-font-size:18px;
+font-size:19px;
 }
 
-/* ==========================
-TIMELINE
-========================== */
+/* ======================
+SCREEN 4 TIMELINE
+====================== */
+
+.timeline-wrap{
+display:flex;
+gap:60px;
+align-items:flex-start;
+margin-top:50px;
+}
 
 .timeline{
 display:flex;
-justify-content:space-between;
-align-items:center;
-gap:15px;
-margin-top:50px;
+flex-direction:column;
+gap:18px;
+width:300px;
 }
 
 .step{
-background:white;
-padding:25px;
-border-radius:20px;
-flex:1;
-text-align:center;
+padding:22px;
+border-radius:18px;
+background:rgba(255,255,255,0.08);
 cursor:pointer;
 transition:0.3s;
-box-shadow:0 5px 15px rgba(0,0,0,0.06);
+backdrop-filter:blur(10px);
+border-left:4px solid transparent;
 }
 
 .step:hover{
-transform:scale(1.04);
+transform:translateX(8px);
+border-left:4px solid #00ffc8;
+box-shadow:0 0 20px rgba(0,255,200,0.15);
 }
 
-.arrow{
-font-size:35px;
-color:#14B8A6;
-}
-
-.detail{
-margin-top:40px;
-background:#111827;
-color:white;
-padding:35px;
+.job-detail{
+flex:1;
+padding:40px;
+background:rgba(255,255,255,0.08);
 border-radius:25px;
+min-height:420px;
+line-height:2.1;
+font-size:19px;
+backdrop-filter:blur(15px);
 display:none;
-line-height:2;
 }
 
-/* ==========================
-CAROUSEL
-========================== */
+/* ======================
+SCREEN 5 SWIPE BIOLOGY
+====================== */
 
-.carousel-wrapper{
+#screen5,#screen6,#screen7{
+color:#111827;
+}
+
+.bio-section{
+width:100%;
 display:flex;
-justify-content:center;
+flex-direction:column;
 align-items:center;
+}
+
+.bio-title{
+font-size:42px;
+font-weight:700;
+margin-bottom:50px;
+}
+
+.swiper-container{
+width:100%;
+overflow:hidden;
+position:relative;
+padding:40px 0;
+cursor:grab;
+}
+
+.swiper-track{
+display:flex;
 gap:30px;
-margin-top:50px;
+transition:transform 0.45s ease;
+padding-left:20%;
+padding-right:20%;
 }
 
-.side-card{
-width:180px;
-height:320px;
-background:#e5e7eb;
-border-radius:30px;
-opacity:0.45;
-}
-
-.main-card{
-width:500px;
-min-height:500px;
-background:white;
+.bio-card{
+min-width:420px;
+height:540px;
 border-radius:35px;
-padding:50px;
-text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
+padding:35px;
+background:rgba(255,255,255,0.75);
+backdrop-filter:blur(20px);
+border:1px solid rgba(20,184,166,0.2);
+box-shadow:0 12px 30px rgba(0,0,0,0.08);
 transition:0.4s;
+flex-shrink:0;
+position:relative;
+overflow:hidden;
 }
 
-.main-icon{
-font-size:60px;
+.bio-card.active{
+transform:scale(1.08);
+box-shadow:0 20px 40px rgba(20,184,166,0.15);
+}
+
+.bio-card::after{
+content:"";
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:100%;
+background:linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,0.35),
+transparent
+);
+transition:0.7s;
+}
+
+.bio-card:hover::after{
+left:100%;
+}
+
+.holo-top{
+font-family:'Orbitron';
+color:#14B8A6;
+margin-bottom:20px;
+font-size:14px;
+letter-spacing:2px;
+}
+
+.bio-icon{
+font-size:55px;
 margin-bottom:20px;
 }
 
-.main-title{
-font-size:35px;
+.bio-name{
+font-size:32px;
 font-weight:700;
-margin-bottom:30px;
+margin-bottom:25px;
 }
 
-.main-content{
+.bio-content{
 line-height:2;
-font-size:19px;
+font-size:18px;
 white-space:pre-line;
 }
 
-.nav-btn{
-font-size:30px;
-cursor:pointer;
-padding:20px;
-}
+/* ======================
+SCREEN 6 FLOW
+====================== */
 
-/* ==========================
-FLOW
-========================== */
-
-.flow{
+.flow-wrap{
 display:flex;
-justify-content:space-between;
-align-items:center;
-margin-top:50px;
-gap:15px;
+justify-content:center;
+gap:25px;
+margin-top:60px;
+flex-wrap:wrap;
 }
 
 .flow-box{
+padding:30px;
 background:white;
-padding:25px;
-flex:1;
+border-radius:22px;
+box-shadow:0 8px 25px rgba(0,0,0,0.05);
+min-width:180px;
 text-align:center;
-border-radius:20px;
-box-shadow:0 5px 15px rgba(0,0,0,0.05);
+font-weight:600;
 }
 
-/* ==========================
-DREAM
-========================== */
+.flow-arrow{
+font-size:30px;
+display:flex;
+align-items:center;
+}
 
-.dream{
+/* ======================
+SCREEN 7 DREAM
+====================== */
+
+.dream-grid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:20px;
-margin-top:40px;
+gap:25px;
+margin-top:50px;
 }
 
 .dream-card{
 background:white;
-padding:40px;
+padding:45px;
 border-radius:30px;
 text-align:center;
-box-shadow:0 5px 15px rgba(0,0,0,0.05);
+box-shadow:0 10px 25px rgba(0,0,0,0.05);
+transition:0.3s;
+}
+
+.dream-card:hover{
+transform:translateY(-10px);
 }
 
 .dream-card h3{
-font-size:45px;
-margin-bottom:20px;
+font-size:50px;
+margin-bottom:25px;
 }
 
-.next{
-margin-top:40px;
+/* ======================
+MOBILE
+====================== */
+
+@media(max-width:900px){
+
+.monitor{
+width:100%;
+padding:35px;
+}
+
+.monitor h1{
+font-size:30px;
+}
+
+.data{
+grid-template-columns:1fr;
+font-size:17px;
+}
+
+.call-card{
+width:100%;
+padding:35px;
+}
+
+.call-text{
+font-size:18px;
+}
+
+.options{
+grid-template-columns:1fr;
+}
+
+.timeline-wrap{
+flex-direction:column;
+}
+
+.timeline{
+width:100%;
+}
+
+.bio-card{
+min-width:320px;
+height:auto;
+}
+
+.dream-grid{
+grid-template-columns:1fr;
+}
+
+.flow-wrap{
+flex-direction:column;
+}
+
+.flow-arrow{
+transform:rotate(90deg);
+}
+
 }
 
 </style>
 </head>
-
 <body>
 
-<!-- SCREEN 1 -->
+<!-- =========================
+SCREEN 1
+========================= -->
 
 <section id="screen1" class="screen active">
-
-<div class="container">
 
 <div class="monitor">
 
 <h1>PATIENT DETECTED</h1>
 
-<div class="monitor-data">
+<div class="data">
 
-Heart Rate : 122 BPM<br>
+<div class="blink">
+HEART RATE : 122 BPM
+</div>
 
-Body Temp : 39.4°C<br>
+<div>
+BODY TEMP : 39.4°C
+</div>
 
-Respiration : ABNORMAL<br>
+<div>
+OXYGEN : 88%
+</div>
 
-Emergency Level : HIGH
+<div class="danger">
+RISK LEVEL : HIGH
+</div>
 
 </div>
 
-<div class="heartbeat">
+<div class="ecg-container">
 
-<div class="line"></div>
+<svg viewBox="0 0 1200 150">
+
+<path class="ecg-line"
+
+d="
+M0 80
+L80 80
+L100 80
+L115 75
+L130 80
+L150 80
+
+L180 80
+L200 10
+L215 130
+L230 60
+L250 80
+
+L320 80
+L340 80
+
+L360 80
+L380 25
+L395 120
+L410 70
+L430 80
+
+L520 80
+L540 80
+
+L560 80
+L580 15
+L600 135
+L620 55
+L640 80
+
+L760 80
+
+L790 80
+L810 30
+L830 120
+L850 70
+L870 80
+
+L1200 80
+"/>
+
+</svg>
 
 </div>
+
+<div class="start">
 
 <button onclick="go('screen2')">
-
 START MISSION
-
 </button>
 
 </div>
@@ -396,48 +652,46 @@ START MISSION
 </section>
 
 
-<!-- SCREEN 2 -->
+
+<!-- =========================
+SCREEN 2
+========================= -->
 
 <section id="screen2" class="screen">
-
-<div class="container">
 
 <div class="call-card">
 
 <div class="call-title">
-
-📞 119 EMERGENCY CALL
-
+📞 INCOMING EMERGENCY CALL
 </div>
 
 <div class="call-text">
 
-신고자 :<br><br>
+"환자가 숨을 잘 못 쉽니다"<br>
 
-"환자가 숨을 잘 못 쉬어요"<br>
+"고열이 너무 심합니다"<br>
 
-"고열이 너무 심해요"<br>
+"기침이 계속됩니다"<br><br>
 
-"기침을 계속합니다"<br><br>
-
-위치 : ○○고등학교 체육관
+Location : School Gymnasium
 
 </div>
 
 <button onclick="go('screen3')">
 
-DISPATCH
+ACCEPT DISPATCH
 
 </button>
-
-</div>
 
 </div>
 
 </section>
 
 
-<!-- SCREEN 3 -->
+
+<!-- =========================
+SCREEN 3
+========================= -->
 
 <section id="screen3" class="screen">
 
@@ -445,18 +699,15 @@ DISPATCH
 
 <div class="title">
 
-현장 도착 : 어떻게 판단할까?
+현장 도착 : 무엇을 먼저 판단해야 할까?
 
 </div>
 
 <div class="patient">
 
-체온 : 39.4℃<br>
-
+39.4℃ 고열<br>
 지속적 기침<br>
-
 호흡수 증가<br>
-
 피부 발진 확인
 
 </div>
@@ -484,7 +735,10 @@ DISPATCH
 </section>
 
 
-<!-- SCREEN 4 -->
+
+<!-- =========================
+SCREEN 4
+========================= -->
 
 <section id="screen4" class="screen">
 
@@ -492,35 +746,35 @@ DISPATCH
 
 <div class="title">
 
-응급구조사는 실제로 무엇을 할까?
+응급구조사의 실제 업무 흐름
 
 </div>
+
+<div class="timeline-wrap">
 
 <div class="timeline">
 
-<div class="step" onclick="showJob(0)">119 신고</div>
-
-<div class="arrow">→</div>
+<div class="step" onclick="showJob(0)">119 신고 접수</div>
 
 <div class="step" onclick="showJob(1)">현장 도착</div>
 
-<div class="arrow">→</div>
+<div class="step" onclick="showJob(2)">환자 상태 평가</div>
 
-<div class="step" onclick="showJob(2)">응급처치</div>
+<div class="step" onclick="showJob(3)">응급처치 실시</div>
 
-<div class="arrow">→</div>
+<div class="step" onclick="showJob(4)">감염 관리</div>
 
-<div class="step" onclick="showJob(3)">감염관리</div>
-
-<div class="arrow">→</div>
-
-<div class="step" onclick="showJob(4)">병원 인계</div>
+<div class="step" onclick="showJob(5)">병원 인계</div>
 
 </div>
 
-<div id="jobDetail" class="detail"></div>
+<div id="jobBox" class="job-detail"></div>
 
-<button class="next" onclick="go('screen5')">
+</div>
+
+<br><br>
+
+<button onclick="goBright('screen5')">
 
 NEXT
 
@@ -530,42 +784,138 @@ NEXT
 
 </section>
 
-
-<!-- SCREEN 5 -->
+  <!-- =========================
+SCREEN 5 BIOLOGY SWIPE
+========================= -->
 
 <section id="screen5" class="screen">
 
-<div class="container">
+<div class="container bio-section">
 
-<div class="title">
+<div class="bio-title">
 
 응급구조사가 알아야 하는 생명과학
 
 </div>
 
-<div class="carousel-wrapper">
+<div class="swiper-container" id="swiper">
 
-<div class="nav-btn" onclick="prevCard()">◀</div>
+<div class="swiper-track" id="track">
 
-<div class="side-card"></div>
+<!-- CARD 1 -->
 
-<div class="main-card">
+<div class="bio-card active">
 
-<div id="icon" class="main-icon"></div>
+<div class="holo-top">BIO DATA ANALYSIS</div>
 
-<div id="cardTitle" class="main-title"></div>
+<div class="bio-icon">🦠</div>
 
-<div id="cardContent" class="main-content"></div>
+<div class="bio-name">병원체</div>
+
+<div class="bio-content">
+
+세균 / 바이러스 / 진균
+
+전파 방식
+
+• 비말 감염  
+• 접촉 감염  
+• 혈액 감염  
+
+EMT Connection
+
+감염 경로를 알아야  
+적절한 보호장비를 선택할 수 있다
 
 </div>
 
-<div class="side-card"></div>
+</div>
 
-<div class="nav-btn" onclick="nextCard()">▶</div>
+
+<!-- CARD 2 -->
+
+<div class="bio-card">
+
+<div class="holo-top">BIO DATA ANALYSIS</div>
+
+<div class="bio-icon">💉</div>
+
+<div class="bio-name">백신</div>
+
+<div class="bio-content">
+
+항체 형성 유도
+
+• 생백신  
+• 사백신  
+• mRNA 백신  
+
+EMT Connection
+
+예방접종 여부는  
+환자 상태 판단의 중요한 단서가 된다
 
 </div>
 
-<button class="next" onclick="go('screen6')">
+</div>
+
+
+<!-- CARD 3 -->
+
+<div class="bio-card">
+
+<div class="holo-top">BIO DATA ANALYSIS</div>
+
+<div class="bio-icon">🧬</div>
+
+<div class="bio-name">면역</div>
+
+<div class="bio-content">
+
+B세포 → 항체 생성  
+T세포 → 감염세포 제거  
+
+EMT Connection
+
+면역력이 약한 환자는  
+빠른 응급처치가 필요하다
+
+</div>
+
+</div>
+
+
+<!-- CARD 4 -->
+
+<div class="bio-card">
+
+<div class="holo-top">BIO DATA ANALYSIS</div>
+
+<div class="bio-icon">👥</div>
+
+<div class="bio-name">집단면역</div>
+
+<div class="bio-content">
+
+많은 사람이 백신 접종 시  
+질병 전파 속도가 감소한다  
+
+EMT Connection
+
+감염병 확산 위험을  
+예측하는 데 도움이 된다
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<br>
+
+<button onclick="go('screen6')">
 
 NEXT
 
@@ -576,7 +926,10 @@ NEXT
 </section>
 
 
-<!-- SCREEN 6 -->
+
+<!-- =========================
+SCREEN 6 CONNECTION
+========================= -->
 
 <section id="screen6" class="screen">
 
@@ -584,33 +937,35 @@ NEXT
 
 <div class="title">
 
-생명과학이 왜 응급구조사에게 중요할까?
+생명과학은 현장에서 이렇게 연결된다
 
 </div>
 
-<div class="flow">
+<div class="flow-wrap">
 
 <div class="flow-box">생명과학</div>
 
-<div class="arrow">↓</div>
+<div class="flow-arrow">→</div>
 
 <div class="flow-box">감염병 이해</div>
 
-<div class="arrow">↓</div>
+<div class="flow-arrow">→</div>
 
 <div class="flow-box">응급 판단</div>
 
-<div class="arrow">↓</div>
+<div class="flow-arrow">→</div>
 
 <div class="flow-box">감염 예방</div>
 
-<div class="arrow">↓</div>
+<div class="flow-arrow">→</div>
 
 <div class="flow-box">생명 구조</div>
 
 </div>
 
-<button class="next" onclick="go('screen7')">
+<br><br>
+
+<button onclick="go('screen7')">
 
 NEXT
 
@@ -621,7 +976,10 @@ NEXT
 </section>
 
 
-<!-- SCREEN 7 -->
+
+<!-- =========================
+SCREEN 7 FINAL
+========================= -->
 
 <section id="screen7" class="screen">
 
@@ -633,15 +991,14 @@ WHY I CHOOSE EMT
 
 </div>
 
-<div class="dream">
+<div class="dream-grid">
 
 <div class="dream-card">
 
 <h3>❤️</h3>
 
-사람의 생명을<br>
-
-직접 지키는 직업
+사람의 생명을  
+직접 지킬 수 있다
 
 </div>
 
@@ -649,9 +1006,8 @@ WHY I CHOOSE EMT
 
 <h3>⚡</h3>
 
-빠른 판단이<br>
-
-생존률을 결정한다
+몇 초의 판단이  
+생존을 결정한다
 
 </div>
 
@@ -659,9 +1015,8 @@ WHY I CHOOSE EMT
 
 <h3>🧬</h3>
 
-생명과학 지식을<br>
-
-실제 현장에서 활용한다
+생명과학 지식이  
+실제 현장에서 사용된다
 
 </div>
 
@@ -674,105 +1029,146 @@ WHY I CHOOSE EMT
 
 <script>
 
-/* 화면 전환 */
+  /* =========================
+SCREEN CHANGE
+========================= */
 
 function go(id){
 
-document.querySelectorAll(".screen")
-.forEach(screen=>{
+document.querySelectorAll(".screen").forEach(screen=>{
 
 screen.classList.remove("active");
 
 });
 
-document.getElementById(id)
-.classList.add("active");
+document.getElementById(id).classList.add("active");
 
 }
 
 
-/* 정답 오답 */
+/* =========================
+BRIGHT MODE
+========================= */
+
+function goBright(id){
+
+document.body.classList.add("bright");
+
+go(id);
+
+setTimeout(()=>{
+
+updateSlider();
+
+},200);
+
+}
+
+
+/* =========================
+QUIZ
+========================= */
 
 function wrong(el){
 
-document.querySelectorAll(".option")
-.forEach(o=>o.classList.remove("active"));
+document.querySelectorAll(".option").forEach(option=>{
 
-el.classList.add("active");
+option.classList.remove("correct");
+option.classList.remove("wrong");
+
+});
+
+el.classList.add("wrong");
 
 let box=document.getElementById("feedback");
 
 box.style.display="block";
 
-box.style.background="#FEE2E2";
+box.style.background="#3a1119";
 
 box.innerHTML=
-"❌ 다시 생각해보세요.<br><br>감염 여부를 먼저 확인해야 구조팀과 의료진의 안전을 보호할 수 있습니다.";
+
+"❌ 잘못된 판단입니다.<br><br>응급구조사는 감염 여부를 먼저 판단하여 구조팀과 의료진의 2차 감염 위험을 예방해야 합니다.";
 
 }
+
+
 
 function correct(el){
 
-document.querySelectorAll(".option")
-.forEach(o=>o.classList.remove("active"));
+document.querySelectorAll(".option").forEach(option=>{
 
-el.classList.add("active");
+option.classList.remove("correct");
+option.classList.remove("wrong");
+
+});
+
+el.classList.add("correct");
 
 let box=document.getElementById("feedback");
 
 box.style.display="block";
 
-box.style.background="#D1FAE5";
+box.style.background="#052f2a";
 
 box.innerHTML=
-"✅ 정확한 판단입니다.<br><br>응급구조사는 환자뿐 아니라 의료진과 구조팀의 감염 위험까지 고려해야 합니다.<br><br><button onclick='go(`screen4`)'>NEXT</button>";
+
+"✅ 정확한 판단입니다.<br><br>감염성 질환 여부를 먼저 판단해야 적절한 보호장비를 착용하고 안전하게 환자를 처치할 수 있습니다.<br><br><button onclick='go(`screen4`)'>NEXT</button>";
 
 }
 
 
-/* JOB */
+
+/* =========================
+TIMELINE
+========================= */
 
 const jobs=[
 
 `📞 119 신고 접수
 
-• 신고자의 상황 설명 확인
-• 사고 위치 파악
-• 출동 준비`,
+• 신고자의 설명 확인  
+• 사고 위치 확인  
+• 필요한 장비 준비`,
 
 `🚑 현장 도착
 
-• 주변 위험요소 확인
-• 환자에게 가장 먼저 접근
-• 응급상황 우선 판단`,
+• 현장 위험요소 분석  
+• 환자에게 가장 먼저 접근  
+• 주변 환경 파악`,
 
-`❤️ 응급처치
+`🩺 환자 상태 평가
 
-• 의식 수준 확인
-• CPR 시행
-• 기도 확보
-• 산소 공급
+• 의식 확인  
+• 활력징후 측정  
+• 응급 우선순위 결정`,
+
+`❤️ 응급처치 실시
+
+• CPR 시행  
+• 기도 확보  
+• 산소 공급  
 • 자동제세동기 사용`,
 
 `🦠 감염 관리
 
-• PPE 보호장비 착용
-• 감염 경로 확인
-• 2차 감염 예방
+• PPE 착용  
+• 감염 경로 파악  
+• 2차 감염 차단  
 • 격리 여부 판단`,
 
 `🏥 병원 인계
 
-• 활력징후 기록
-• 응급실 전달
-• 감염 가능성 전달
+• 응급실에 상태 전달  
+• 감염 가능성 전달  
 • 의료진에게 환자 인계`
 
 ];
 
+
 function showJob(i){
 
-let box=document.getElementById("jobDetail");
+let box=document.getElementById("jobBox");
 
 box.style.display="block";
 
@@ -781,127 +1177,134 @@ box.innerHTML=jobs[i];
 }
 
 
-/* biology carousel */
 
-let index=0;
+/* =========================
+SWIPE CARDS
+========================= */
 
-const biology=[
+const track=document.getElementById("track");
 
-{
-icon:"🦠",
-title:"병원체",
-content:
-`세균 / 바이러스 / 진균
+const cards=document.querySelectorAll(".bio-card");
 
-전파 방식
+let current=0;
+let startX=0;
+let dragMove=0;
+let isDragging=false;
 
-• 비말 감염
-• 접촉 감염
-• 혈액 감염
 
-EMT 연결
+function updateSlider(){
 
-감염 경로에 따라
-보호장비가 달라진다.`
-},
+track.style.transform=
+`translateX(-${current*450}px)`;
 
-{
-icon:"💉",
-title:"백신",
-content:
-`병원체 일부를 이용하여
+cards.forEach(card=>{
 
-항체 형성을 유도한다
+card.classList.remove("active");
 
-종류
+});
 
-• 생백신
-• 사백신
-• 핵산백신
-
-EMT 연결
-
-예방접종 여부는
-환자 상태 판단에 중요하다`
-},
-
-{
-icon:"🧬",
-title:"면역",
-content:
-`B세포 → 항체 생성
-
-T세포 → 감염세포 제거
-
-기억세포 → 빠른 대응
-
-EMT 연결
-
-면역이 약한 환자는
-더 빠른 처치가 필요하다`
-},
-
-{
-icon:"👥",
-title:"집단면역",
-content:
-`많은 사람이 백신을 접종하면
-
-전파 속도가 감소한다
-
-면역이 없는 사람도
-간접 보호받는다
-
-EMT 연결
-
-감염병 확산 가능성을
-예측할 수 있다`
-}
-
-];
-
-function updateCard(){
-
-document.getElementById("icon").innerHTML=
-biology[index].icon;
-
-document.getElementById("cardTitle").innerHTML=
-biology[index].title;
-
-document.getElementById("cardContent").innerHTML=
-biology[index].content;
+cards[current].classList.add("active");
 
 }
 
-function nextCard(){
 
-index++;
+/* mouse */
 
-if(index>3){
+track.addEventListener("mousedown",(e)=>{
 
-index=0;
+isDragging=true;
+
+startX=e.clientX;
+
+track.style.transition="none";
+
+});
+
+
+window.addEventListener("mousemove",(e)=>{
+
+if(!isDragging) return;
+
+dragMove=e.clientX-startX;
+
+track.style.transform=
+`translateX(calc(-${current*450}px + ${dragMove}px))`;
+
+});
+
+
+window.addEventListener("mouseup",()=>{
+
+if(!isDragging) return;
+
+isDragging=false;
+
+track.style.transition="0.45s ease";
+
+if(dragMove<-80 && current<cards.length-1){
+
+current++;
 
 }
 
-updateCard();
+else if(dragMove>80 && current>0){
+
+current--;
 
 }
 
-function prevCard(){
+dragMove=0;
 
-index--;
+updateSlider();
 
-if(index<0){
+});
 
-index=3;
+
+/* touch */
+
+let touchMove=0;
+
+
+track.addEventListener("touchstart",(e)=>{
+
+startX=e.touches[0].clientX;
+
+});
+
+
+track.addEventListener("touchmove",(e)=>{
+
+touchMove=e.touches[0].clientX-startX;
+
+track.style.transition="none";
+
+track.style.transform=
+`translateX(calc(-${current*450}px + ${touchMove}px))`;
+
+});
+
+
+track.addEventListener("touchend",()=>{
+
+track.style.transition="0.45s ease";
+
+if(touchMove<-70 && current<cards.length-1){
+
+current++;
 
 }
 
-updateCard();
+else if(touchMove>70 && current>0){
+
+current--;
 
 }
 
-updateCard();
+touchMove=0;
+
+updateSlider();
+
+});
 
 </script>
 
